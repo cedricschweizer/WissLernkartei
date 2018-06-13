@@ -20,7 +20,7 @@ public class Controller {
     private boolean turnState;
     private int currentCard = 0;
 
-    public void turnCard(){
+    public void turnCard() throws InterruptedException {
         if (timeline.getStatus() == Animation.Status.RUNNING)
             return;
         card.setText("");
@@ -34,10 +34,36 @@ public class Controller {
         timeline.getKeyFrames().add(kf);
         timeline.getKeyFrames().add(kf2);
         timeline.play();
+
+        turnState = !turnState;
+        showCard();
     }
 
     private void addNewCard(String vds, String rs){
         cardTexts.add(new Card(vds, rs));
+    }
+    public void addSome(){
+        addNewCard("noice", "hhhhhh");
+        addNewCard("qwer", "uiop");
+        addNewCard("asdf", "hjlk");
+        addNewCard("ycxv", "vbmn");
+        addNewCard("jesus", "christus");
+    }
+    public void inc(){
+        this.currentCard++;
+        this.turnState = false;
+        showCard();
+    }
+    public void dec(){
+        this.currentCard--;
+        this.turnState = false;
+        showCard();
+    }
+    private void showCard(){
+        if (!this.turnState)
+            card.setText(cardTexts.get(currentCard).getKey());
+        else
+            card.setText(cardTexts.get(currentCard).getVal());
     }
 
 }
