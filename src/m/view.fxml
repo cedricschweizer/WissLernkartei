@@ -1,0 +1,30 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.shape.*?>
+<?import javafx.scene.effect.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.image.*?>
+<?import javafx.scene.web.*?>
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="721.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m.Controller">
+   <children>
+      <Button id="btnNextCard" layoutX="521.0" layoutY="499.0" mnemonicParsing="false" text="Nächste Karte" />
+      <TextField id="txtCards" fx:id="card" alignment="CENTER" editable="false" layoutX="14.0" layoutY="105.0" onMouseClicked="#turnCard" prefHeight="432.0" prefWidth="370.0" style="-fx-background-radius: 30;" stylesheets="@../Documents/dev/WISSLK/src/style.css" text="KARTE">
+         <cursor>
+            <Cursor fx:constant="HAND" />
+         </cursor>
+         <font>
+            <Font size="20.0" />
+         </font>
+      </TextField>
+      <ImageView id="imgLogo" fx:id="imgWISSLogo" fitHeight="74.0" fitWidth="298.0" layoutX="118.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
+         <image>
+            <Image url="res/logo.png" />
+         </image>
+      </ImageView>
+   </children>
+</AnchorPane>
