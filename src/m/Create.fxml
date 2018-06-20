@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="350.0" prefWidth="306.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m.NewCardControllerererer">
+   <children>
+      <TextField fx:id="txtForeground" layoutX="60.0" layoutY="67.0" />
+      <Text layoutX="116.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vorderseite" />
+      <Text layoutX="122.0" layoutY="134.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rückseite" />
+      <TextField fx:id="txtBackground" layoutX="60.0" layoutY="146.0" />
+      <Text layoutX="122.0" layoutY="217.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[Bildpath]" />
+      <TextField fx:id="txtImgPath" editable="false" layoutX="60.0" layoutY="229.0" />
+      <Button layoutX="259.0" layoutY="229.0" mnemonicParsing="false" onAction="#chooseFile" text="..." />
+      <Button layoutX="79.0" layoutY="292.0" mnemonicParsing="false" onAction="#createNew" stylesheets="@../res/style.css" text="Erfassen" />
+      <Button layoutX="163.0" layoutY="292.0" mnemonicParsing="false" onAction="#finish" stylesheets="@../res/style.css" text="Finish" />
+   </children>
+</AnchorPane>

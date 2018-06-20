@@ -8,21 +8,55 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+
+    private Stage primaryStage = new Stage();
+    private Stage chusStatsch = new Stage();
+
     @Override
     public void start(Stage primaryStage) throws Exception {
+        MeinWindou();
+    }
+
+    private void MeinWindou(){
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("view.fxml"));
             AnchorPane pane = loader.load();
             Controller controller = loader.getController();
+            controller.setMain(this);
 
             Scene scene = new Scene(pane);
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
+            primaryStage.setTitle("himucheib");
             primaryStage.show();
+
+            controller.init();
 
         } catch (Exception e){
             e.printStackTrace();
         }
+    }
+
+    public void ChusWindou(Controller controller){
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Create.fxml"));
+            AnchorPane pane = loader.load();
+            NewCardControllerererer newController = loader.getController();
+            newController.setMain(this);
+            newController.setInitialController(controller);
+
+            Scene scene = new Scene(pane);
+            chusStatsch.setScene(scene);
+            chusStatsch.setResizable(false);
+            chusStatsch.setTitle("New uwu");
+            chusStatsch.show();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public Stage getChusStatsch(){
+        return chusStatsch;
     }
 
     public static void main(String[] args) {

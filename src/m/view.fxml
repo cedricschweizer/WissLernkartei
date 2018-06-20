@@ -12,13 +12,12 @@
 
 <AnchorPane minHeight="0.0" minWidth="0.0" onDragDetected="#addSome" prefHeight="721.0" prefWidth="1000.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m.Controller">
    <children>
-      <Button id="btnNextCard" layoutX="521.0" layoutY="499.0" mnemonicParsing="false" text="Nächste Karte" />
-      <TextField id="txtCards" fx:id="card" alignment="CENTER" editable="false" layoutX="14.0" layoutY="105.0" onMouseClicked="#turnCard" prefHeight="432.0" prefWidth="370.0" style="-fx-background-radius: 30;" stylesheets="@../res/style.css" text="KARTE">
+      <TextField id="txtCards" fx:id="card" alignment="CENTER" editable="false" focusTraversable="false" layoutX="14.0" layoutY="105.0" onMouseClicked="#turnCard" prefHeight="432.0" prefWidth="370.0" style="-fx-background-radius: 30;" stylesheets="@../res/style.css" text="KARTE">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <font>
-            <Font size="20.0" />
+            <Font name="Comfortaa Light" size="29.0" />
          </font>
       </TextField>
       <ImageView id="imgLogo" fx:id="imgWISSLogo" fitHeight="74.0" fitWidth="298.0" layoutX="118.0" layoutY="14.0" pickOnBounds="true" preserveRatio="true">
@@ -26,8 +25,11 @@
             <Image url="res/logo.png" />
          </image>
       </ImageView>
-      <Button layoutX="545.0" layoutY="179.0" mnemonicParsing="false" onAction="#addSome" text="Add sum" />
+      <Button layoutX="647.0" layoutY="560.0" mnemonicParsing="false" onAction="#addSome" text="Add sum" />
       <Button layoutX="262.0" layoutY="591.0" mnemonicParsing="false" onAction="#inc" text="+++" />
       <Button layoutX="71.0" layoutY="591.0" mnemonicParsing="false" onAction="#dec" text="---" />
+      <Text fx:id="lblCount" layoutX="174.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <ImageView fx:id="imgBitchSan" fitHeight="301.0" fitWidth="301.0" layoutX="413.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="736.0" layoutY="270.0" mnemonicParsing="false" onAction="#makeNew" prefHeight="414.0" prefWidth="219.0" text="Make new" />
    </children>
 </AnchorPane>
