@@ -25,11 +25,11 @@
             <Image url="res/logo.png" />
          </image>
       </ImageView>
-      <Button layoutX="647.0" layoutY="560.0" mnemonicParsing="false" onAction="#addSome" text="Add sum" />
+      <Button layoutX="583.0" layoutY="565.0" mnemonicParsing="false" onAction="#addSome" text="Add sum" />
       <Button layoutX="262.0" layoutY="591.0" mnemonicParsing="false" onAction="#inc" text="+++" />
       <Button layoutX="71.0" layoutY="591.0" mnemonicParsing="false" onAction="#dec" text="---" />
       <Text fx:id="lblCount" layoutX="174.0" layoutY="612.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
-      <ImageView fx:id="imgBitchSan" fitHeight="301.0" fitWidth="301.0" layoutX="413.0" layoutY="171.0" pickOnBounds="true" preserveRatio="true" />
-      <Button layoutX="736.0" layoutY="270.0" mnemonicParsing="false" onAction="#makeNew" prefHeight="414.0" prefWidth="219.0" text="Make new" />
+      <ImageView fx:id="imgBitchSan" fitHeight="432.0" fitWidth="339.0" layoutX="413.0" layoutY="109.0" pickOnBounds="true" preserveRatio="true" />
+      <Button id="btnMakeCard" layoutX="696.0" layoutY="128.0" mnemonicParsing="false" onAction="#makeNew" prefHeight="394.0" prefWidth="279.0" stylesheets="@../res/style.css" text="Neue Karten erfassen" />
    </children>
 </AnchorPane>

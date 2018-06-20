@@ -3,3 +3,9 @@
     -fx-background-color: violet;
 
 }
+
+#btnMakeCard
+{
+    -fx-background-image: url("cardBG.PNG");
+    -fx-font-size: 25px;
+}
