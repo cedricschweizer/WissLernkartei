@@ -8,6 +8,10 @@ import javafx.fxml.FXML;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.scene.layout.AnchorPane;
+import javafx.scene.media.Media;
+import javafx.scene.media.MediaPlayer;
+import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
@@ -23,11 +27,14 @@ public class Controller {
     Text lblCount;
     @FXML
     ImageView imgBitchSan;
+    @FXML
+    AnchorPane vidPane;
 
 
     private Timeline timeline = new Timeline();
     private ArrayList<Card> cardTexts = new ArrayList<>();
     private Image iameg;
+    private AnchorPane defaultPane;
 
     private boolean turnState;
     private int currentCard = 0;
@@ -35,6 +42,20 @@ public class Controller {
 
     public void setMain(Main mao) {
         this.main = mao;
+    }
+    public void setAPane(AnchorPane pane){
+        this.defaultPane = pane;
+        playAnimation();
+    }
+    private void playAnimation(){
+        MediaPlayer player = new MediaPlayer( new Media(getClass().getResource("../res/animation.mp4").toExternalForm()));
+        MediaView mediaView = new MediaView(player);
+
+        mediaView.setFitHeight(vidPane.getHeight());
+        mediaView.setFitWidth(vidPane.getWidth());
+        vidPane.getChildren().add(mediaView);
+        player.setCycleCount(MediaPlayer.INDEFINITE);
+        player.play();
     }
 
     public void turnCard() throws InterruptedException {
@@ -53,17 +74,6 @@ public class Controller {
         timeline.getKeyFrames().add(kf2);
         timeline.play();
         turnState = !turnState;
-        /*
-
-        card.setText("");
-        timeline.setCycleCount(2);
-        timeline.setAutoReverse(true);
-        final KeyValue kv = new KeyValue(card.opacityProperty(), 0);
-        final KeyFrame kf = new KeyFrame(Duration.millis(50), kv);
-        timeline.getKeyFrames().add(kf);
-        timeline.play();
-        turnState = !turnState;
-        */
     }
 
     public void addNewCard(String vds, String rs) {
@@ -78,15 +88,6 @@ public class Controller {
         card.widthProperty().addListener((observable, oldValue, newValue) ->
                 showCard(newValue.intValue())
         );
-    }
-
-    public void addSome() {
-
-        addNewCard("noice", "hhhhhh");
-        addNewCard("qwer", "uiop");
-        addNewCard("asdf", "hjlk");
-        addNewCard("ycxv", "vbmn");
-        addNewCard("jesus", "christus");
     }
 
     public void inc() {

@@ -31,6 +31,7 @@ public class Main extends Application {
             primaryStage.show();
 
             controller.init();
+            controller.setAPane(pane);
 
         } catch (Exception e){
             e.printStackTrace();
