@@ -3,7 +3,7 @@ package m;
 public class Card {
     private String Key;
     private String Val;
-    private String img;
+    private String img = "";
 
     public Card(String Key, String Val){
         this.Key = Key;

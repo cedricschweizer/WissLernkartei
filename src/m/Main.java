@@ -17,7 +17,7 @@ public class Main extends Application {
         MeinWindou();
     }
 
-    private void MeinWindou(){
+    public void MeinWindou(){
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("view.fxml"));
             AnchorPane pane = loader.load();
@@ -27,11 +27,28 @@ public class Main extends Application {
             Scene scene = new Scene(pane);
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
-            primaryStage.setTitle("himucheib");
+            primaryStage.setTitle("");
             primaryStage.show();
 
             controller.init();
             controller.setAPane(pane);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+    public void ExecWin(){
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("exec.fxml"));
+            AnchorPane pane = loader.load();
+            ExecController cntrl = loader.getController();
+            cntrl.setMain(this);
+
+            Scene scene = new Scene(pane);
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.setTitle("Exec uwu");
+            primaryStage.show();
 
         } catch (Exception e){
             e.printStackTrace();
@@ -59,6 +76,7 @@ public class Main extends Application {
     public Stage getChusStatsch(){
         return chusStatsch;
     }
+    public Stage getPrimaryStage(){return primaryStage;}
 
     public static void main(String[] args) {
         launch(args);

@@ -5,6 +5,9 @@ import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
@@ -13,9 +16,13 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
+import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
+import java.io.File;
+import java.io.IOException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class Controller {
 
@@ -131,6 +138,33 @@ public class Controller {
 
     public void makeNew() {
         main.ChusWindou(this);
+    }
+
+    public void saveStack() throws IOException {
+        MapParser mapParser = new MapParser("C:\\Users\\Beer Thierry\\Desktop\\Bewerbung\\tescht.cards");
+        mapParser.writeCurrentStack(cardTexts);
+    }
+    public void loadStack() throws IOException {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        ButtonType cont = new ButtonType("Continue");
+        ButtonType nope = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(cont, nope);
+        Optional<ButtonType> res = alert.showAndWait();
+        if (res.get() == nope)
+            return;
+
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Plis chus filet uwu");
+        File filet = fc.showOpenDialog(main.getPrimaryStage());
+        MapParser mapParser = new MapParser(filet.getAbsolutePath());
+        cardTexts = mapParser.loadStackFromFilet();
+    }
+    public void execWindow(){
+        main.ExecWin();
+    }
+    public void bsod() throws IOException {
+        Script.runYT();
     }
 
 }
