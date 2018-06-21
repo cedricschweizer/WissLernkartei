@@ -41,25 +41,25 @@ public class NewCardControllerererer {
     }
     public void createNew(){
         if (filet != null){
-            if (txtForeground.getText().equalsIgnoreCase("") || txtForeground.getText().equalsIgnoreCase(""))
+            if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase(""))
             {
                showInsaneWarning();
                return;
             }
             controller.addNewCard(txtForeground.getText(), txtBackground.getText(), filet.getPath());
             clearAllllll();
+            controller.showCard();
             return;
         }
 
-
-
-        if (txtForeground.getText().equalsIgnoreCase("") || txtForeground.getText().equalsIgnoreCase(""))
+       if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase(""))
         {
             showInsaneWarning();
             return;
         }
         controller.addNewCard(txtForeground.getText(), txtBackground.getText());
         clearAllllll();
+        controller.showCard();
     }
     public void finish(){
         main.getChusStatsch().close();

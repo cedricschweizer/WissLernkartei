@@ -112,10 +112,10 @@ public class Controller {
         showCard();
     }
 
-    private void showCard() {
+    public void showCard() {
         Image img = new Image("file:"+null);
         imgBitchSan.setImage(img);
-        lblCount.setText(String.valueOf(this.currentCard));
+        lblCount.setText(String.valueOf(this.currentCard+1));
 
         if (!this.turnState) {
             card.setText(cardTexts.get(currentCard).getKey());
