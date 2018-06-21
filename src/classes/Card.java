@@ -1,4 +1,4 @@
-package m;
+package classes;
 
 public class Card {
     private String Key;

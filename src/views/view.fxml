@@ -10,7 +10,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane id="windowBG" minHeight="0.0" minWidth="0.0" prefHeight="721.0" prefWidth="1000.0" stylesheets="@../res/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m.Controller">
+<AnchorPane id="windowBG" minHeight="0.0" minWidth="0.0" prefHeight="721.0" prefWidth="1000.0" stylesheets="@../res/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.Controller">
    <children>
       <TextField id="txtCards" fx:id="card" alignment="CENTER" editable="false" focusTraversable="false" layoutX="14.0" layoutY="105.0" onMouseClicked="#turnCard" prefHeight="432.0" prefWidth="370.0" style="-fx-background-radius: 30;" stylesheets="@../res/style.css" text="KARTE">
          <cursor>

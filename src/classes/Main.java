@@ -1,4 +1,4 @@
-package m;
+package classes;
 
 import javafx.application.Application;
 import javafx.fxml.FXMLLoader;
@@ -19,7 +19,7 @@ public class Main extends Application {
 
     public void MeinWindou(){
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("view.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../views/view.fxml"));
             AnchorPane pane = loader.load();
             Controller controller = loader.getController();
             controller.setMain(this);
@@ -39,7 +39,7 @@ public class Main extends Application {
     }
     public void ExecWin(){
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("exec.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../views/exec.fxml"));
             AnchorPane pane = loader.load();
             ExecController cntrl = loader.getController();
             cntrl.setMain(this);
@@ -57,7 +57,7 @@ public class Main extends Application {
 
     public void ChusWindou(Controller controller){
         try {
-            FXMLLoader loader = new FXMLLoader(Main.class.getResource("Create.fxml"));
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../views/Create.fxml"));
             AnchorPane pane = loader.load();
             NewCardControllerererer newController = loader.getController();
             newController.setMain(this);

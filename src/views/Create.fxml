@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="350.0" prefWidth="306.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m.NewCardControllerererer">
+<AnchorPane prefHeight="350.0" prefWidth="306.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.NewCardControllerererer">
    <children>
       <TextField fx:id="txtForeground" layoutX="60.0" layoutY="67.0" />
       <Text layoutX="116.0" layoutY="56.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vorderseite" />

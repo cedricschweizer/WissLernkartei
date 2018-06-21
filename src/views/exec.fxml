@@ -8,7 +8,7 @@
 <?import javafx.scene.layout.*?>
 
 
-<AnchorPane prefHeight="303.0" prefWidth="435.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="m.ExecController">
+<AnchorPane prefHeight="303.0" prefWidth="435.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.ExecController">
    <children>
       <TextField fx:id="txtArg" layoutX="15.0" layoutY="42.0" prefHeight="31.0" prefWidth="155.0" />
       <Text layoutX="59.0" layoutY="30.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Argument" />
