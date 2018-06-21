@@ -141,7 +141,14 @@ public class Controller {
     }
 
     public void saveStack() throws IOException {
-        MapParser mapParser = new MapParser("C:\\Users\\Beer Thierry\\Desktop\\Bewerbung\\tescht.cards");
+        String saveFile;
+
+        FileChooser fc = new FileChooser();
+        fc.setTitle("Wo soll Ihr Filet gespeichert werden?");
+        FileChooser.ExtensionFilter filtu = new FileChooser.ExtensionFilter("TXT Files (*.txt)","*.txt");
+        fc.getExtensionFilters().add(filtu);
+        File filette = fc.showSaveDialog(main.getPrimaryStage());
+        MapParser mapParser = new MapParser(filette.getAbsolutePath());
         mapParser.writeCurrentStack(cardTexts);
     }
     public void loadStack() throws IOException {
