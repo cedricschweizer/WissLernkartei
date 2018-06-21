@@ -90,8 +90,7 @@ public class Controller {
         cardTexts.add(new Card(vds, rs, imgPath));
     }
 
-    public void init() {
-        addNewCard("tescht", "notescht");
+    public void initListener() {
         card.widthProperty().addListener((observable, oldValue, newValue) ->
                 showCard(newValue.intValue())
         );

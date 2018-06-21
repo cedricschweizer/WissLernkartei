@@ -30,7 +30,7 @@ public class Main extends Application {
             primaryStage.setTitle("");
             primaryStage.show();
 
-            controller.init();
+            controller.initListener();
             controller.setAPane(pane);
 
         } catch (Exception e){
