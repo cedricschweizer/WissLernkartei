@@ -58,17 +58,33 @@ public class Database {
         }
     }
 
-    public static void select() {
-
+    private static Connection connection() {
         String url = "jdbc:sqlite:C:/Users/Developer/Desktop/tescht.db";
+
+        Connection connection = null;
+        try {
+            connection = DriverManager.getConnection(url);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+        return connection;
+    }
+
+    public static void select() {
 
         String sql = "SELECT * FROM  testtable;";
 
-        try (Connection connection = DriverManager.getConnection(url);
-             Statement stmt = connection.createStatement()) {
-            stmt.execute(sql);
+        try (Connection connection = connection();
+        Statement stmt = connection.createStatement();
+        ResultSet rs = stmt.executeQuery(sql)){
+
+            while (rs.next()){
+                System.out.println(rs.getInt("id")+"\t"+
+                                                        rs.getString("tescht"));
+            }
+
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
+           System.out.println(e.getMessage());
         }
     }
 

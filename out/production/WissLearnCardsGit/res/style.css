@@ -1,0 +1,26 @@
+#btnShowSolution:hover
+{
+    -fx-background-color: violet;
+
+}
+
+#btnMakeCard
+{
+    -fx-background-color: navajowhite;
+    -fx-font-size: 16px;
+}
+#windowBG{
+    -fx-background-color: rgb(26, 46, 78);
+}
+#menuBarara{
+    -fx-background-color: #FFFFFF;
+}
+#manu{
+    -fx-text-fill: white;
+}
+#manu2{
+    -fx-font: white;
+}
+#manu3{
+    -fx-font: white;
+}
