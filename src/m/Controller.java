@@ -156,6 +156,9 @@ public class Controller {
         ButtonType nope = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
 
         alert.getButtonTypes().setAll(cont, nope);
+        alert.setTitle("Obstacles foreseen uwu");
+        alert.setHeaderText("Attention");
+        alert.setContentText("All changes on the current stack will be lost.\nContinue?");
         Optional<ButtonType> res = alert.showAndWait();
         if (res.get() == nope)
             return;
