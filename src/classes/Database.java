@@ -3,12 +3,13 @@ import java.sql.*;
 
 public class Database {
 
+    static String url = "jdbc:sqlite:"+System.getenv("homepath")+"/db.db";
+
     public static void main(String[] args) {connect(); createTable(); insert(); select();}
 
         public static void connect() {
             Connection connection = null;
             try {
-                String url = "jdbc:sqlite:C:/Users/Developer/Desktop/tescht.db";
 
                 connection = DriverManager.getConnection(url);
 
@@ -28,8 +29,6 @@ public class Database {
 
         public static void createTable() {
 
-            String url = "jdbc:sqlite:C:/Users/Developer/Desktop/tescht.db";
-
             String sql = "Create table if not exists testtable (\n"
                     + "id integer Primary Key,\n"
                     + "tescht nvarchar(20)\n"
@@ -45,8 +44,6 @@ public class Database {
 
     public static void insert() {
 
-        String url = "jdbc:sqlite:C:/Users/Developer/Desktop/tescht.db";
-
         String sql = "INSERT INTO testtable(tescht)\n"
                 + "VALUES ('tescht');";
 
@@ -59,8 +56,6 @@ public class Database {
     }
 
     private static Connection connection() {
-        String url = "jdbc:sqlite:C:/Users/Developer/Desktop/tescht.db";
-
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(url);
