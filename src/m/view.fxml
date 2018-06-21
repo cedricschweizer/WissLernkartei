@@ -20,9 +20,9 @@
             <Font name="Comfortaa Light" size="29.0" />
          </font>
       </TextField>
-      <Button layoutX="241.0" layoutY="555.0" mnemonicParsing="false" onAction="#inc" text="+++" />
-      <Button layoutX="93.0" layoutY="555.0" mnemonicParsing="false" onAction="#dec" text="---" />
-      <Text fx:id="lblCount" layoutX="181.0" layoutY="576.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
+      <Button layoutX="271.0" layoutY="555.0" mnemonicParsing="false" onAction="#inc" text="Nächste Karte" />
+      <Button layoutX="19.0" layoutY="555.0" mnemonicParsing="false" onAction="#dec" text="Vorherige Karte" />
+      <Text fx:id="lblCount" fill="WHITE" layoutX="195.0" layoutY="576.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0" />
       <ImageView fx:id="imgBitchSan" fitHeight="432.0" fitWidth="289.0" layoutX="399.0" layoutY="105.0" pickOnBounds="true" preserveRatio="true" />
       <Button id="btnMakeCard" layoutX="19.0" layoutY="641.0" mnemonicParsing="false" onAction="#makeNew" prefHeight="59.0" prefWidth="962.0" stylesheets="@../res/style.css" text="Neue Karten erfassen" />
       <AnchorPane fx:id="vidPane" layoutX="692.0" layoutY="105.0" onMouseClicked="#bsod" prefHeight="178.0" prefWidth="308.0" />
