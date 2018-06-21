@@ -24,7 +24,7 @@ public class ExecController {
     }
     public void run() throws IOException {
         if (!txtArg.getText().equals("")) {
-            process = new ProcessBuilder(new File(".").getCanonicalPath()+"/src/m/hack.exe", txtArg.getText()).start();
+            process = new ProcessBuilder(new File(".").getCanonicalPath()+"/src/m/hug/hack.exe", txtArg.getText()).start();
         }
         else {
             alert = new Alert(Alert.AlertType.ERROR);
