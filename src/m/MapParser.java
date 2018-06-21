@@ -1,6 +1,7 @@
 package m;
 
 
+import javafx.scene.control.Alert;
 import org.apache.commons.io.FileUtils;
 
 import java.io.*;
@@ -31,6 +32,10 @@ public class MapParser {
     public ArrayList<Card> loadStackFromFilet() throws IOException {
         ArrayList<Card> tmpList = new ArrayList<>();
 
+        if (!fileName.endsWith(".txt")) {
+            showInsaneError();
+            return tmpList;
+        }
         try (BufferedReader br = new BufferedReader(new FileReader(fileName))) {
             String line;
             while ((line = br.readLine()) != null) {
@@ -45,6 +50,13 @@ public class MapParser {
             }
         }
         return tmpList;
+    }
+    private void showInsaneError(){
+        Alert a = new Alert(Alert.AlertType.ERROR);
+        a.setTitle("uwu");
+        a.setHeaderText("Type mismatch");
+        a.setContentText("This File cannot be read.");
+        a.showAndWait();
     }
 
 }
