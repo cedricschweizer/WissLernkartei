@@ -28,10 +28,10 @@ public class Database {
 
     public void createTable() {
 
-        String sql = "Create table if not exists WLK (\n"
+        String sql = "Create table if not exists WLK ( \n"
                 + "id integer primary key autoincrement,\n"
                 + "vorderseite nvarchar(200),\n"
-                + "hinterseite nvarchar(200),\n)"
+                + "hinterseite nvarchar(200),\n"
                 + "bild nvarchar(200),\n"
                 + "fach nvarchar(100),\n"
                 + "kategorie nvarchar(200)"
