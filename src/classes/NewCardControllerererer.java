@@ -45,18 +45,20 @@ public class NewCardControllerererer {
     }
     public void createNew(){
         if (filet != null){
-            if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase(""))
+            if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase("")
+                    || txtFach.getText().equalsIgnoreCase("") || txtKat.getText().equals(""))
             {
                showInsaneWarning();
                return;
             }
-            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), filet.getPath(),txtFach.getText().toLowerCase(),txtKat.getText().toLowerCase());
+            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), txtFach.getText().toLowerCase(),txtKat.getText().toLowerCase(), filet.getPath());
             clearAllllll();
             controller.showCard();
             return;
         }
 
-       if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase(""))
+       if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase("")
+               || txtFach.getText().equals("") || txtKat.getText().equals(""))
         {
             showInsaneWarning();
             return;

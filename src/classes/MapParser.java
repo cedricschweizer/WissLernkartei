@@ -21,6 +21,8 @@ public class MapParser {
         for (Card card:obowintotuo) {
             builder.append(card.getKey()).append(";");
             builder.append(card.getVal()).append(";");
+            builder.append(card.getFach()).append(";");
+            builder.append(card.getKategorie()).append(";");
             if (!card.getImg().equals(""))
                 builder.append(card.getImg()).append(";").append("\n");
             else
@@ -41,11 +43,11 @@ public class MapParser {
             while ((line = br.readLine()) != null) {
 
                 String[] sLine = line.split(";");
-                if (sLine.length == 2){
-                    tmpList.add(new Card(sLine[0], sLine[1]));
+                if (sLine.length == 4){
+                    tmpList.add(new Card(sLine[0], sLine[1], sLine[2], sLine[3]));
                 }
-                else if (sLine.length == 3){
-                    tmpList.add(new Card(sLine[0], sLine[1], sLine[2]));
+                else if (sLine.length == 5){
+                    tmpList.add(new Card(sLine[0], sLine[1], sLine[2], sLine[3], sLine[4]));
                 }
             }
         }
