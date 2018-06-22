@@ -40,7 +40,10 @@ public class Controller {
     ImageView imgBitchSan;
     @FXML
     AnchorPane vidPane;
-
+    @FXML
+    TextField txtLoadDBFach;
+    @FXML
+    TextField txtLoadDBKat;
 
     private Timeline timeline = new Timeline();
     private ArrayList<Card> cardTexts = new ArrayList<>();
@@ -87,11 +90,11 @@ public class Controller {
         turnState = !turnState;
     }
 
-    public void addNewCard(String vds, String rs) {
-        cardTexts.add(new Card(vds, rs));
+    public void addNewCard(String vds, String rs, String fach, String kategorie) {
+        cardTexts.add(new Card(vds, rs, fach, kategorie));
     }
-    public void addNewCard(String vds, String rs, String imgPath){
-        cardTexts.add(new Card(vds, rs, imgPath));
+    public void addNewCard(String vds, String rs, String imgPath, String fach, String kategorie){
+        cardTexts.add(new Card(vds, rs, imgPath, fach, kategorie));
     }
 
     public void initListener() {
@@ -187,7 +190,7 @@ public class Controller {
     }
 
     public void loadStackDB() {
-        sqlString = "where fach like "+" and where kategorie like "/*+*/;
+        sqlString = "where fach like "+txtLoadDBFach.getText().toLowerCase()+" and where kategorie like "+txtLoadDBKat.getText().toLowerCase();
         db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK "+sqlString);
         main.MeinWindou();
     }

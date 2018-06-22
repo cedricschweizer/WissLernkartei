@@ -24,6 +24,10 @@ public class NewCardControllerererer {
     TextField txtBackground;
     @FXML
     TextField txtImgPath;
+    @FXML
+    TextField txtFach;
+    @FXML
+    TextField txtKat;
 
     public void setInitialController(Controller controller){
         this.controller = controller;
@@ -46,7 +50,7 @@ public class NewCardControllerererer {
                showInsaneWarning();
                return;
             }
-            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), filet.getPath());
+            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), filet.getPath(),txtFach.getText().toLowerCase(),txtKat.getText().toLowerCase());
             clearAllllll();
             controller.showCard();
             return;
@@ -57,7 +61,7 @@ public class NewCardControllerererer {
             showInsaneWarning();
             return;
         }
-        controller.addNewCard(txtForeground.getText(), txtBackground.getText());
+        controller.addNewCard(txtForeground.getText(), txtBackground.getText(),txtFach.getText().toLowerCase(),txtKat.getText().toLowerCase());
         clearAllllll();
         controller.showCard();
     }

@@ -18,7 +18,7 @@
             <Text layoutX="123.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fach" />
             <TextField fx:id="txtFach" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kategorie" />
-            <TextField fx:id="txtCategory" />
+            <TextField fx:id="txtKat" />
             <Text layoutX="122.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[Bildpath]" />
             <TextField fx:id="txtImgPath" editable="false" layoutX="60.0" layoutY="245.0" prefHeight="31.0" prefWidth="137.0" />
          </children>
