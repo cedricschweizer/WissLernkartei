@@ -10,6 +10,8 @@ public class Card {
     public Card(String Key, String Val, String Fach, String Kategorie){
         this.Key = Key;
         this.Val = Val;
+        this.fach = Fach;
+        this.kategorie = Kategorie;
     }
     public Card(String Key, String Val, String Fach, String Kategorie, String img){
         this(Key, Val, Fach, Kategorie);
