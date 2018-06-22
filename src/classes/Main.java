@@ -8,6 +8,7 @@ import javafx.stage.Stage;
 
 public class Main extends Application {
 
+    Database db = new Database();
 
     private Stage primaryStage = new Stage();
     private Stage chusStatsch = new Stage();
@@ -16,6 +17,8 @@ public class Main extends Application {
     @Override
     public void start(Stage primaryStage) throws Exception {
         MeinWindou();
+        db.connect();
+        db.createTable();
     }
 
     public void MeinWindou(){

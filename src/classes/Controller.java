@@ -21,6 +21,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -189,9 +190,22 @@ public class Controller {
         cardTexts = mapParser.loadStackFromFilet();
     }
 
-    public void loadStackDB() {
-        sqlString = "where fach like "+txtLoadDBFach.getText().toLowerCase()+" and where kategorie like "+txtLoadDBKat.getText().toLowerCase();
-        db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK "+sqlString);
+    public void loadStackDB(){
+        Alert alertWarning = new Alert(Alert.AlertType.WARNING);
+        ButtonType cont = new ButtonType("Ja");
+        ButtonType canc = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
+        if(txtLoadDBKat.getText() == "" || txtLoadDBFach.getText() == "") {
+            alertWarning.getButtonTypes().setAll(cont, canc);
+            alertWarning.setTitle("Nicht alle Felder ausgefüllt!");
+            alertWarning.setHeaderText("Achtung!");
+            alertWarning.setContentText("Weiterfahren ohne Kategorie/Fach?");
+            Optional<ButtonType> res = alertWarning.showAndWait();
+            if (res.get() == canc)
+                return;
+        }
+
+        sqlString = "where fach like " + txtLoadDBFach.getText().toLowerCase() + " and where kategorie like " + txtLoadDBKat.getText().toLowerCase();
+        db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK " + sqlString);
         main.MeinWindou();
     }
 
