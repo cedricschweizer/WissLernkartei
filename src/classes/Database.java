@@ -68,6 +68,7 @@ public class Database {
             stmt.execute("drop database if exists WissLK;");
             System.out.println("Successfully dropped database!");
         } catch (SQLException e) {
+            System.out.println("Es ist ein Fehler aufgetreten! Bitte kontaktieren Sie Ihre Eltern!");
             System.out.println(e.getMessage());
         }
     }
