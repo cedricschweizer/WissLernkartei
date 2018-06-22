@@ -66,7 +66,7 @@ public class Main extends Application {
             Scene scene = new Scene(pane);
             chusStatsch.setScene(scene);
             chusStatsch.setResizable(false);
-            chusStatsch.setTitle("New uwu");
+            chusStatsch.setTitle("Neue Karte erstellen");
             chusStatsch.show();
 
         } catch (Exception e){
