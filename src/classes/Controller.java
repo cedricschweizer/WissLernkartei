@@ -1,5 +1,6 @@
 package classes;
 
+import com.sun.org.apache.bcel.internal.generic.NEW;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
@@ -21,6 +22,7 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
@@ -190,7 +192,7 @@ public class Controller {
         cardTexts = mapParser.loadStackFromFilet();
     }
 
-    public void loadStackDB(){
+    public void loadStackDB() throws SQLException {
         Alert alertWarning = new Alert(Alert.AlertType.WARNING);
         ButtonType cont = new ButtonType("Ja");
         ButtonType canc = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -204,8 +206,23 @@ public class Controller {
                 return;
         }
 
-        sqlString = "where fach like '" + txtLoadDBFach.getText().toLowerCase() + "' and where kategorie like '" + txtLoadDBKat.getText().toLowerCase()+"';";
-        db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK " + sqlString);
+        sqlString = "where fach like '" + txtLoadDBFach.getText().toLowerCase() + "' and kategorie like '" + txtLoadDBKat.getText().toLowerCase()+"';";
+
+        ResultSet rs = db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK " + sqlString);
+        ArrayList<Card> tmpList = new ArrayList<>();
+        while (rs.next()){
+            if (rs.getString("bild").equals("")){
+                tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
+                        rs.getString("kategorie")));
+            }
+            else{
+                tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
+                        rs.getString("kategorie"), rs.getString("bild")));
+            }
+        }
+
+        cardTexts = tmpList;
+        showCard();
         main.MeinWindou();
     }
 

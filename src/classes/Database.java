@@ -70,20 +70,17 @@ public class Database {
         return connection;
     }
 
-    public void select(String sql) {
-
-        try (Connection connection = connection();
-        Statement stmt = connection.createStatement();
-        ResultSet rs = stmt.executeQuery(sql)){
-
-            /*while (rs.next()){
-                System.out.println(rs.getInt("id")+"\t"+
-                                                        rs.getString("tescht"));
-            }*/
-
+    public ResultSet select(String sql) {
+        ResultSet rs;
+        try {
+            Connection connection = connection();
+            Statement stmt = connection.createStatement();
+            rs = stmt.executeQuery(sql);
         } catch (SQLException e) {
            System.out.println(e.getMessage());
+           rs=null;
         }
+        return rs;
     }
 
 }
