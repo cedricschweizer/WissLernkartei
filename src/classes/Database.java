@@ -34,7 +34,8 @@ public class Database {
                 + "hinterseite nvarchar(200),\n)"
                 + "bild nvarchar(200),\n"
                 + "fach nvarchar(100),\n"
-                + "kategorie nvarchar(200));";
+                + "kategorie nvarchar(200)"
+                + ");";
 
         System.out.println("Tabelle erfolgreich erstellt!");
 
