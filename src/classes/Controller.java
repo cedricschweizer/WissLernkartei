@@ -26,6 +26,8 @@ import java.util.Optional;
 
 public class Controller {
 
+    String sqlString = "";
+
     Database db = new Database();
 
     private Main main;
@@ -178,7 +180,8 @@ public class Controller {
     }
 
     public void loadStackDB() {
-        db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK");
+        sqlString = "where fach like"+"and where kategorie like"/*+*/;
+        db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK "+sqlString);
     }
 
     public void execWindow(){
