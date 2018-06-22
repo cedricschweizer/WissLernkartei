@@ -49,5 +49,6 @@
             <Reflection fraction="0.76" topOpacity="0.44" />
          </effect>
       </MenuBar>
+      <Button layoutX="871.0" layoutY="555.0" mnemonicParsing="false" onAction="#closeApp" text="App beenden" />
    </children>
 </AnchorPane>

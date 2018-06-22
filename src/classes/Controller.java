@@ -210,6 +210,10 @@ public class Controller {
         }
     }
 
+    public void closeApp() {
+        System.exit(0);
+    }
+
     public void execWindow(){
         main.ExecWin();
     }
