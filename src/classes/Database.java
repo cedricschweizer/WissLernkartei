@@ -3,10 +3,10 @@ import java.sql.*;
 
 public class Database {
 
-    static String url = "jdbc:sqlite:"+System.getenv("homepath")+"/db.db";
+    String url = "jdbc:sqlite:"+System.getenv("homepath")+"/db.db";
 
 
-    public static void connect() {
+    public void connect() {
         Connection connection = null;
         try {
 
@@ -26,7 +26,7 @@ public class Database {
         }
     }
 
-    public static void createTable() {
+    public void createTable() {
 
         String sql = "Create table if not exists WLK (\n"
                 + "id integer primary key autoincrement,\n"
@@ -46,7 +46,7 @@ public class Database {
         }
     }
 
-    public static void insert(String vds, String hs, String img, String fach, String kat) {
+    public void insert(String vds, String hs, String img, String fach, String kat) {
 
         String sql = "INSERT INTO WLK(vorderseite, hinterseite, bild, fach, kategorie)\n"
                 + "VALUES ('"+vds+"', '"+hs+"','"+img+"','"+fach+"','"+kat+"');";
@@ -59,7 +59,7 @@ public class Database {
         }
     }
 
-    private static Connection connection() {
+    private Connection connection() {
         Connection connection = null;
         try {
             connection = DriverManager.getConnection(url);
@@ -69,7 +69,7 @@ public class Database {
         return connection;
     }
 
-    public static void select(String sql) {
+    public void select(String sql) {
 
         try (Connection connection = connection();
         Statement stmt = connection.createStatement();

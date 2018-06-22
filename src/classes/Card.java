@@ -4,6 +4,8 @@ public class Card {
     private String Key;
     private String Val;
     private String img = "";
+    private String Fach = "";
+    private String Kategorie = "";
 
     public Card(String Key, String Val){
         this.Key = Key;
@@ -26,4 +28,6 @@ public class Card {
     public String getVal() { return this.Val;
     }
     public String getImg(){return this.img;}
+    public String getFach(){return this.Fach;}
+    public String getKategorie(){return this.Kategorie;}
 }

@@ -26,6 +26,8 @@ import java.util.Optional;
 
 public class Controller {
 
+    Database db = new Database();
+
     private Main main;
 
     @FXML
@@ -151,7 +153,9 @@ public class Controller {
         mapParser.writeCurrentStack(cardTexts);
     }
     public void saveStackDB(){
-
+        for (Card cards:cardTexts) {
+            db.insert(cards.getKey(),cards.getVal(),cards.getImg(),cards.getFach(),cards.getKategorie());
+        }
     }
     public void loadStack() throws IOException {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -172,6 +176,11 @@ public class Controller {
         MapParser mapParser = new MapParser(filet.getAbsolutePath());
         cardTexts = mapParser.loadStackFromFilet();
     }
+
+    public void loadStackDB() {
+        db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK");
+    }
+
     public void execWindow(){
         main.ExecWin();
     }
