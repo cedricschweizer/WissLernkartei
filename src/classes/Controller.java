@@ -204,7 +204,7 @@ public class Controller {
                 return;
         }
 
-        sqlString = "where fach like " + txtLoadDBFach.getText().toLowerCase() + " and where kategorie like " + txtLoadDBKat.getText().toLowerCase();
+        sqlString = "where fach like '" + txtLoadDBFach.getText().toLowerCase() + "' and where kategorie like '" + txtLoadDBKat.getText().toLowerCase()+"';";
         db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK " + sqlString);
         main.MeinWindou();
     }
