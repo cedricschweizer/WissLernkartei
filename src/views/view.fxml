@@ -33,7 +33,8 @@
               <MenuItem mnemonicParsing="false" onAction="#saveStackFile" text="Save Stack in File" />
                   <MenuItem mnemonicParsing="false" onAction="#saveStackDB" text="Save Stack in DB" />
                   <SeparatorMenuItem mnemonicParsing="false" text="uwu" />
-                  <MenuItem mnemonicParsing="false" onAction="#loadStack" text="Load Cardstack" />
+                  <MenuItem mnemonicParsing="false" onAction="#loadStack" text="Load Stack File" />
+                  <MenuItem mnemonicParsing="false" onAction="#showLoadDB" text="Load Stack DB" />
             </items>
           </Menu>
           <Menu id="manu3" mnemonicParsing="false" styleClass="menu" text="Exec">

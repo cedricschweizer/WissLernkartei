@@ -100,6 +100,13 @@ public class Controller {
         );
     }
 
+    public void showLoadDB(){
+        main.LoadDB();
+    }
+    public void showMainWindow(){
+        main.MeinWindou();
+    }
+
     public void inc() {
         if (currentCard + 1 > cardTexts.size() - 1)
             return;
@@ -180,8 +187,9 @@ public class Controller {
     }
 
     public void loadStackDB() {
-        sqlString = "where fach like"+"and where kategorie like"/*+*/;
+        sqlString = "where fach like "+" and where kategorie like "/*+*/;
         db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK "+sqlString);
+        main.MeinWindou();
     }
 
     public void execWindow(){

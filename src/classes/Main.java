@@ -11,6 +11,7 @@ public class Main extends Application {
 
     private Stage primaryStage = new Stage();
     private Stage chusStatsch = new Stage();
+    private Stage loadDbStage = new Stage();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -32,6 +33,24 @@ public class Main extends Application {
 
             controller.initListener();
             controller.setAPane(pane);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void LoadDB(){
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../views/LoadDB.fxml"));
+            AnchorPane pane = loader.load();
+            Controller controller = loader.getController();
+            controller.setMain(this);
+
+            Scene scene = new Scene(pane);
+            loadDbStage.setScene(scene);
+            loadDbStage.setResizable(false);
+            loadDbStage.setTitle("Specify plis");
+            loadDbStage.show();
 
         } catch (Exception e){
             e.printStackTrace();
