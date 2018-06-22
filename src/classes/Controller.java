@@ -139,7 +139,7 @@ public class Controller {
         main.ChusWindou(this);
     }
 
-    public void saveStack() throws IOException {
+    public void saveStackFile() throws IOException {
         String saveFile;
 
         FileChooser fc = new FileChooser();
@@ -149,6 +149,9 @@ public class Controller {
         File filette = fc.showSaveDialog(main.getPrimaryStage());
         MapParser mapParser = new MapParser(filette.getAbsolutePath());
         mapParser.writeCurrentStack(cardTexts);
+    }
+    public void saveStackDB(){
+
     }
     public void loadStack() throws IOException {
         Alert alert = new Alert(Alert.AlertType.WARNING);
