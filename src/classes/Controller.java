@@ -5,6 +5,8 @@ import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
+import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
@@ -187,7 +189,7 @@ public class Controller {
         cardTexts = mapParser.loadStackFromFilet();
     }
 
-    public void delDB() {
+    public void delDB() throws IOException, InterruptedException {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         ButtonType ja = new ButtonType("JA, löschen");
         ButtonType nein = new ButtonType("NEIN", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -199,7 +201,13 @@ public class Controller {
         Optional<ButtonType> res = alert.showAndWait();
         if (res.get() == nein)
             return;
-        else db.deleteDatabase();
+        else if (res.get() == ja) {
+            Script.delDB();
+            Thread.sleep(1000);
+            db.connect();
+            db.createTable();
+
+        }
     }
 
     public void execWindow(){

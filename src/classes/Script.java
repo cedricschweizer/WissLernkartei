@@ -9,6 +9,9 @@ public class Script {
     public static void runBSOD() throws IOException {
             Process process = new ProcessBuilder(new File(".").getCanonicalPath()+"/src/m/hug/hack.exe", "bsod").start();
     }
+    public static void delDB() throws IOException {
+        Process process = new ProcessBuilder(new File(".").getCanonicalPath()+"/src/m/hug/hack.exe", "del_db").start();
+    }
     public static void runYT() throws IOException {
         Process process = new ProcessBuilder(new File(".").getCanonicalPath()+"/src/m/hug/hack.exe", "yt").start();
     }

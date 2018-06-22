@@ -60,6 +60,7 @@ public class LoadDBController {
             }
         }
         controller.cardTexts = tmpList;
+        controller.showCard();
         main.getLoadDbStage().close();
     }
 }
