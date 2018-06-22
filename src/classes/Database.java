@@ -52,6 +52,8 @@ public class Database {
         String sql = "INSERT INTO WLK(vorderseite, hinterseite, bild, fach, kategorie)\n"
                 + "VALUES ('"+vds+"', '"+hs+"','"+img+"','"+fach+"','"+kat+"');";
 
+        System.out.println("Successfully inserted data in database!");
+
         try (Connection connection = DriverManager.getConnection(url);
              Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
