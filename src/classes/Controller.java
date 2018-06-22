@@ -161,6 +161,11 @@ public class Controller {
         for (Card cards:cardTexts) {
             db.insert(cards.getKey(),cards.getVal(),cards.getImg(),cards.getFach(),cards.getKategorie());
         }
+        Alert alert = new Alert(Alert.AlertType.INFORMATION);
+        alert.setTitle("Daten gespeichert");
+        alert.setHeaderText("Datenbank erfolgreich gespeichert!");
+        alert.setContentText("Ihre Daten wurden erfolgreich gespeichert!");
+        alert.showAndWait();
     }
     public void loadStack() throws IOException {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -182,22 +187,25 @@ public class Controller {
         cardTexts = mapParser.loadStackFromFilet();
     }
 
+    public void delDB() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        ButtonType ja = new ButtonType("JA, löschen");
+        ButtonType nein = new ButtonType("NEIN", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+        alert.getButtonTypes().setAll(ja, nein);
+        alert.setTitle("Löschen der Datenbank");
+        alert.setHeaderText("WARNUNG");
+        alert.setContentText("Möchten Sie wirklich alle vorhandenen Daten löschen?");
+        Optional<ButtonType> res = alert.showAndWait();
+        if (res.get() == nein)
+            return;
+        else db.deleteDatabase();
+    }
+
     public void execWindow(){
         main.ExecWin();
     }
     public void bsod() throws IOException {
         Script.runYT();
     }
-
-
-
-
-
-
-
-
-
-
-
-
 }

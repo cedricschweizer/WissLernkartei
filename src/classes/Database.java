@@ -3,7 +3,7 @@ import java.sql.*;
 
 public class Database {
 
-    String url = "jdbc:sqlite:"+System.getenv("homepath")+"/db.db";
+    String url = "jdbc:sqlite:"+System.getenv("homepath")+"/WissLK.db";
 
 
     public void connect() {
@@ -12,7 +12,7 @@ public class Database {
 
             connection = DriverManager.getConnection(url);
 
-            System.out.println("Connection succeded!");
+            System.out.println("Connection succeded! | Created database");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         } finally {
@@ -37,7 +37,7 @@ public class Database {
                 + "kategorie nvarchar(200)"
                 + ");";
 
-        System.out.println("Tabelle erfolgreich erstellt!");
+        System.out.println("Table successfully created!");
 
         try (Connection connection = DriverManager.getConnection(url);
              Statement stmt = connection.createStatement()) {
@@ -57,6 +57,16 @@ public class Database {
         try (Connection connection = DriverManager.getConnection(url);
              Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteDatabase() {
+        try (Connection connection = DriverManager.getConnection(url);
+             Statement stmt = connection.createStatement()) {
+            stmt.execute("drop database if exists WissLK;");
+            System.out.println("Successfully dropped database!");
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

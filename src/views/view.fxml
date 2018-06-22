@@ -35,6 +35,8 @@
                   <SeparatorMenuItem mnemonicParsing="false" text="uwu" />
                   <MenuItem mnemonicParsing="false" onAction="#loadStack" text="Load Stack File" />
                   <MenuItem mnemonicParsing="false" onAction="#showLoadDB" text="Load Stack DB" />
+                  <SeparatorMenuItem mnemonicParsing="false" />
+                  <MenuItem mnemonicParsing="false" onAction="#delDB" text="Delete Database" />
             </items>
           </Menu>
           <Menu id="manu3" mnemonicParsing="false" styleClass="menu" text="Exec">
