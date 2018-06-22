@@ -43,6 +43,7 @@ public class MapParser {
             while ((line = br.readLine()) != null) {
 
                 String[] sLine = line.split(";");
+                System.out.println(sLine.toString());
                 if (sLine.length == 4){
                     tmpList.add(new Card(sLine[0], sLine[1], sLine[2], sLine[3]));
                 }
