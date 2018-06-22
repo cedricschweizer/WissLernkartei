@@ -29,10 +29,6 @@ import java.util.Optional;
 
 public class Controller {
 
-    String sqlString = "";
-
-    Database db = new Database();
-
     private Main main;
 
     @FXML
@@ -43,13 +39,10 @@ public class Controller {
     ImageView imgBitchSan;
     @FXML
     AnchorPane vidPane;
-    @FXML
-    TextField txtLoadDBFach;
-    @FXML
-    TextField txtLoadDBKat;
 
+    private Database db = new Database();
     private Timeline timeline = new Timeline();
-    private ArrayList<Card> cardTexts = new ArrayList<>();
+    public ArrayList<Card> cardTexts = new ArrayList<>();
     private Image iameg;
     private AnchorPane defaultPane;
 
@@ -107,10 +100,7 @@ public class Controller {
     }
 
     public void showLoadDB(){
-        main.LoadDB();
-    }
-    public void showMainWindow(){
-        main.MeinWindou();
+        main.LoadDB(this);
     }
 
     public void inc() {
@@ -192,45 +182,22 @@ public class Controller {
         cardTexts = mapParser.loadStackFromFilet();
     }
 
-    public void loadStackDB() throws SQLException {
-        Alert alertWarning = new Alert(Alert.AlertType.WARNING);
-        ButtonType cont = new ButtonType("Ja");
-        ButtonType canc = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
-        if(txtLoadDBKat.getText() == "" || txtLoadDBFach.getText() == "") {
-            alertWarning.getButtonTypes().setAll(cont, canc);
-            alertWarning.setTitle("Nicht alle Felder ausgefüllt!");
-            alertWarning.setHeaderText("Achtung!");
-            alertWarning.setContentText("Weiterfahren ohne Kategorie/Fach?");
-            Optional<ButtonType> res = alertWarning.showAndWait();
-            if (res.get() == canc)
-                return;
-        }
-
-        sqlString = "where fach like '" + txtLoadDBFach.getText().toLowerCase() + "' and kategorie like '" + txtLoadDBKat.getText().toLowerCase()+"';";
-
-        ResultSet rs = db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK " + sqlString);
-        ArrayList<Card> tmpList = new ArrayList<>();
-        while (rs.next()){
-            if (rs.getString("bild").equals("")){
-                tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
-                        rs.getString("kategorie")));
-            }
-            else{
-                tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
-                        rs.getString("kategorie"), rs.getString("bild")));
-            }
-        }
-
-        cardTexts = tmpList;
-        showCard();
-        main.MeinWindou();
-    }
-
     public void execWindow(){
         main.ExecWin();
     }
     public void bsod() throws IOException {
         Script.runYT();
     }
+
+
+
+
+
+
+
+
+
+
+
 
 }

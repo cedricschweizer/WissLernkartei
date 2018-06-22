@@ -42,12 +42,13 @@ public class Main extends Application {
         }
     }
 
-    public void LoadDB(){
+    public void LoadDB(Controller controller){
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("../views/LoadDB.fxml"));
             AnchorPane pane = loader.load();
-            Controller controller = loader.getController();
-            controller.setMain(this);
+            LoadDBController LDBcontroller = loader.getController();
+            LDBcontroller.setMain(this);
+            LDBcontroller.setNativeController(controller);
 
             Scene scene = new Scene(pane);
             loadDbStage.setScene(scene);
@@ -99,6 +100,7 @@ public class Main extends Application {
         return chusStatsch;
     }
     public Stage getPrimaryStage(){return primaryStage;}
+    public Stage getLoadDbStage(){return loadDbStage;}
 
     public static void main(String[] args) {
         launch(args);
