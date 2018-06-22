@@ -124,7 +124,7 @@ public class Controller {
     public void showCard() {
         Image img = new Image("file:"+null);
         imgBitchSan.setImage(img);
-        lblCount.setText(String.valueOf(this.currentCard+1));
+        lblCount.setText(String.valueOf(this.currentCard+1) + "/" + String.valueOf(cardTexts.size()));
 
         if (!this.turnState) {
             card.setText(cardTexts.get(currentCard).getKey());
@@ -199,14 +199,11 @@ public class Controller {
         alert.setHeaderText("WARNUNG");
         alert.setContentText("Möchten Sie wirklich alle vorhandenen Daten löschen?");
         Optional<ButtonType> res = alert.showAndWait();
-        if (res.get() == nein)
-            return;
-        else if (res.get() == ja) {
+        if (res.get() == ja) {
             Script.delDB();
             Thread.sleep(1000);
             db.connect();
             db.createTable();
-
         }
     }
 
