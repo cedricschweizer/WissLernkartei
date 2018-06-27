@@ -205,6 +205,9 @@ public class Controller {
             Thread.sleep(1000);
             db.connect();
             db.createTable();
+            db.createTableF();
+            db.createTableK();
+            db.createTableTmp();
         }
     }
 

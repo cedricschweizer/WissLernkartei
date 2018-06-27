@@ -1,14 +1,18 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.scene.text.*?>
 <?import java.lang.*?>
 <?import java.util.*?>
 <?import javafx.scene.*?>
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane xmlns="http://javafx.com/javafx"
-            xmlns:fx="http://javafx.com/fxml"
-            fx:controller="classes.FackController"
-            prefHeight="400.0" prefWidth="600.0">
 
+<AnchorPane prefHeight="311.0" prefWidth="519.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.FackController">
+   <children>
+      <Text layoutX="149.0" layoutY="100.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name des zu erstellenden Faches:" />
+      <TextField fx:id="txtNewFach" layoutX="167.0" layoutY="133.0" />
+      <Button fx:id="btnNewFach" layoutX="204.0" layoutY="194.0" mnemonicParsing="false" onAction="#crtNewFach" text="Fach erstellen" />
+      <Button fx:id="btnBackFach" layoutX="390.0" layoutY="266.0" mnemonicParsing="false" onAction="#fachBack" text="Fertig | Zurück" />
+   </children>
 </AnchorPane>

@@ -47,15 +47,14 @@ public class Database {
         }
     }
 
-    public void createTableFK() {
+    public void createTableF() {
 
-        String sql = "Create table if not exists FK ( \n"
+        String sql = "Create table if not exists fach ( \n"
                 + "id integer primary key autoincrement,\n"
-                + "fach nvarchar(200),\n"
-                + "kategorie nvarchar(200)\n"
+                + "fach nvarchar(200)\n"
                 + ");";
 
-        System.out.println("Table FK successfully created!");
+        System.out.println("Table fach successfully created!");
 
         try (Connection connection = DriverManager.getConnection(url);
              Statement stmt = connection.createStatement()) {
@@ -64,6 +63,43 @@ public class Database {
             System.out.println(e.getMessage());
         }
     }
+
+    public void createTableK() {
+
+        String sql = "Create table if not exists kat ( \n"
+                + "id integer primary key autoincrement,\n"
+                + "kategorie nvarchar(200)\n"
+                + ");";
+
+        System.out.println("Table kat successfully created!");
+
+        try (Connection connection = DriverManager.getConnection(url);
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void createTableTmp() {
+
+        String sql = "Create table if not exists tmp ( \n"
+                + "id integer primary key autoincrement,\n"
+                + "tmpVS nvarchar(200),\n"
+                + "tmpRS nvarchar(200),\n"
+                + "tmpPath nvarchar(200)"
+                + ");";
+
+        System.out.println("Table tmp successfully created!");
+
+        try (Connection connection = DriverManager.getConnection(url);
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
 
     public void insert(String vds, String hs, String img, String fach, String kat) {
 
@@ -80,10 +116,10 @@ public class Database {
         }
     }
 
-    public void insertFK(String fach, String kat) {
+    public void insertF(String fach) {
 
-        String sql = "INSERT INTO FK(fach, kategorie)\n"
-                + "VALUES ('"+fach+"', '"+kat+"');";
+        String sql = "INSERT INTO fach(fach)\n"
+                + "VALUES ('"+fach+"');";
 
         System.out.println("Successfully inserted data in database!");
 
@@ -91,6 +127,47 @@ public class Database {
              Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
         } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void insertK(String kat) {
+
+        String sql = "INSERT INTO kat(kategorie)\n"
+                + "VALUES ('"+kat+"');";
+
+        System.out.println("Successfully inserted data in database!");
+
+        try (Connection connection = DriverManager.getConnection(url);
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void insertTmp(String tmpVS, String tmpRS, String tmpPath) {
+
+        String sql = "INSERT INTO tmp(tmpVS, tmpRS, tmpPath)\n"
+                + "VALUES ('"+tmpVS+"','"+tmpRS+"','"+tmpPath+"');";
+
+        System.out.println("Successfully inserted data in database!");
+
+        try (Connection connection = DriverManager.getConnection(url);
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void deleteTableTmp() {
+        try (Connection conn = DriverManager.getConnection(url);
+             Statement statement = conn.createStatement()) {
+            statement.execute("DROP TABLE if EXISTS tmp;");
+            System.out.println("Successfully dropped table!");
+        } catch (SQLException e) {
+            System.out.println("Es ist ein Fehler aufgetreten! Bitte kontaktieren Sie Ihre Eltern!");
             System.out.println(e.getMessage());
         }
     }

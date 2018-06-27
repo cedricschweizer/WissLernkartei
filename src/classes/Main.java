@@ -21,7 +21,9 @@ public class Main extends Application {
         MeinWindou();
         db.connect();
         db.createTable();
-        db.createTableFK();
+        db.createTableF();
+        db.createTableK();
+        db.createTableTmp(); //SRY DIERRRRRRRRY
     }
 
     public void MeinWindou(){
@@ -45,12 +47,14 @@ public class Main extends Application {
         }
     }
 
-    public void createKata(){
+    public void createKata(NewCardControllerererer ncontrol, Controller control){
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("../views/createKata.fxml"));
             AnchorPane pane = loader.load();
             KataController controller = loader.getController();
             controller.setMain(this);
+            controller.setNcontrol(ncontrol);
+            controller.setControl(control);
 
             Scene scene = new Scene(pane);
             createKataStage.setScene(scene);
@@ -64,12 +68,14 @@ public class Main extends Application {
         }
     }
 
-    public void createFack(){
+    public void createFack(NewCardControllerererer ncontrol, Controller control){
         try {
             FXMLLoader loader = new FXMLLoader(Main.class.getResource("../views/createFack.fxml"));
             AnchorPane pane = loader.load();
             FackController controller = loader.getController();
             controller.setMain(this);
+            controller.setNcontrol(ncontrol);
+            controller.setControl(control);
 
             Scene scene = new Scene(pane);
             createFackStage.setScene(scene);
@@ -142,6 +148,8 @@ public class Main extends Application {
     }
     public Stage getPrimaryStage(){return primaryStage;}
     public Stage getLoadDbStage(){return loadDbStage;}
+    public Stage getCreateKataStage(){return createKataStage;}
+    public Stage getCreateFackStage(){return createFackStage;}
 
     public static void main(String[] args) {
         launch(args);

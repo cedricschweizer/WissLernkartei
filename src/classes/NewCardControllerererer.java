@@ -1,5 +1,7 @@
 package classes;
 
+import javafx.collections.FXCollections;
+import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ComboBox;
@@ -7,6 +9,10 @@ import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
 import java.io.File;
+import java.io.IOException;
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
 
 public class NewCardControllerererer {
 
@@ -17,8 +23,20 @@ public class NewCardControllerererer {
     File filet;
     Controller controller;
 
-    public void setMain(Main main){
+    public void setMain(Main main) throws IOException {
         this.main = main;
+
+        try {
+            ResultSet rs = db.select("select tmpVS, tmpRS, tmpPath from tmp;");
+
+            txtForeground.setText(rs.getString("tmpVS"));
+            txtBackground.setText(rs.getString("tmpRS"));
+            txtImgPath.setText(rs.getString("tmpPath"));
+        } catch(Exception e) {
+            e.printStackTrace();
+        }
+
+        db.deleteTableTmp();
     }
 
     @FXML
@@ -31,8 +49,7 @@ public class NewCardControllerererer {
     ComboBox cbCreateFach;
     @FXML
     ComboBox cbCreateKat;
-    @FXML
-    TextField txtNewKat;
+
 
     public void setInitialController(Controller controller){
         this.controller = controller;
@@ -49,52 +66,68 @@ public class NewCardControllerererer {
         filet = null;
     }
     public void createNew(){
-        if (filet != null){
-            if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase("")
-                    || cbCreateFach.getValue().equals("") || cbCreateKat.getValue().equals(""))
-            {
-               showInsaneWarning();
-               return;
+        try {
+            if (filet != null) {
+                if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase("")
+                        || cbCreateFach.getValue().equals("") || cbCreateKat.getValue().equals("")) {
+                    showInsaneWarning();
+                    return;
+                }
+                controller.addNewCard(txtForeground.getText(), txtBackground.getText(), cbCreateFach.getValue().toString(), cbCreateKat.getValue().toString(), txtImgPath.getText());
+                clearAllllll();
+                controller.showCard();
+                return;
             }
-            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), cbCreateFach.getValue().toString(),cbCreateKat.getValue().toString(), txtImgPath.getText());
+
+            if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase("")
+                    || cbCreateFach.getValue().toString().equals("") || cbCreateKat.getValue().toString().equals("")) {
+                showInsaneWarning();
+                return;
+            }
+            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), cbCreateFach.getValue().toString().toLowerCase(), cbCreateKat.getValue().toString().toLowerCase());
             clearAllllll();
             controller.showCard();
-            return;
+        } catch (Exception e) {
+            e.printStackTrace();
         }
-
-       if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase("")
-               || cbCreateFach.getValue().toString().equals("") || cbCreateKat.getValue().toString().equals(""))
-        {
-            showInsaneWarning();
-            return;
-        }
-        controller.addNewCard(txtForeground.getText(), txtBackground.getText(),cbCreateFach.getValue().toString().toLowerCase(),cbCreateKat.getValue().toString().toLowerCase());
-        clearAllllll();
-        controller.showCard();
     }
 
     public void newFach() {
-        //main.createFach();
-    }
-
-    public void crtNewFach() {
-        db.insertFK(null, txtNewKat.getText());
-    }
-
-    public void fachBack() {
-
+        main.createFack(this, controller);
     }
 
     public void newKat() {
-        main.createKata();
+        main.createKata(this, controller);
     }
 
-    public void crtNewKat() {
-        db.insertFK(null, txtNewKat.getText());
+    public void fachDropped() {
+        System.out.println("fachDropped");
+        ResultSet rsFach = db.select("Select distinct fach from fach;");
+        try {
+            while (rsFach.next()){
+                cbCreateFach.getItems().addAll(rsFach.getString("fach"));
+                System.out.println("Added new Fach");
+                System.out.println(rsFach.getString("fach"));
+            }
+        cbCreateFach = new ComboBox();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
-    public void katBack() {
-
+    public void katDropped() {
+        System.out.println("katDropped");
+        ResultSet rsKat = db.select("Select distinct kategorie from kat;");
+        try {
+            while (rsKat.next()){
+                cbCreateKat.getItems().addAll(rsKat.getString("kategorie"));
+                System.out.println("Added new Kategorie");
+                System.out.println(rsKat.getString("kategorie"));
+            }
+            cbCreateKat = new ComboBox();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
     }
 
     public void finish(){

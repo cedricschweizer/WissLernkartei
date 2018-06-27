@@ -7,7 +7,7 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="270.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.NewCardControllerererer">
+<AnchorPane prefHeight="270.0" prefWidth="494.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.KataController">
    <children>
       <Text layoutX="126.0" layoutY="91.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Name der zu erstellenden Kategorie:" />
       <TextField fx:id="txtNewKat" layoutX="154.0" layoutY="124.0" />
