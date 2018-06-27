@@ -187,6 +187,7 @@ public class Controller {
         File filet = fc.showOpenDialog(main.getPrimaryStage());
         MapParser mapParser = new MapParser(filet.getAbsolutePath());
         cardTexts = mapParser.loadStackFromFilet();
+        showCard();
     }
 
     public void delDB() throws IOException, InterruptedException {
@@ -205,6 +206,14 @@ public class Controller {
             db.connect();
             db.createTable();
         }
+    }
+
+    public void newFach() {
+
+    }
+
+    public void newKat() {
+
     }
 
     public void closeApp() {

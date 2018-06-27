@@ -2,6 +2,7 @@ package classes;
 
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
 
@@ -25,9 +26,9 @@ public class NewCardControllerererer {
     @FXML
     TextField txtImgPath;
     @FXML
-    TextField txtFach;
+    ComboBox cbCreateFach;
     @FXML
-    TextField txtKat;
+    ComboBox cbCreateKat;
 
     public void setInitialController(Controller controller){
         this.controller = controller;
@@ -46,24 +47,24 @@ public class NewCardControllerererer {
     public void createNew(){
         if (filet != null){
             if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase("")
-                    || txtFach.getText().equalsIgnoreCase("") || txtKat.getText().equals(""))
+                    || cbCreateFach.getValue().equals("") || cbCreateKat.getValue().equals(""))
             {
                showInsaneWarning();
                return;
             }
-            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), txtFach.getText().toLowerCase(),txtKat.getText().toLowerCase(), filet.getPath());
+            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), cbCreateFach.getValue().toString(),cbCreateKat.getValue().toString(), txtImgPath.getText());
             clearAllllll();
             controller.showCard();
             return;
         }
 
        if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase("")
-               || txtFach.getText().equals("") || txtKat.getText().equals(""))
+               || cbCreateFach.getValue().toString().equals("") || cbCreateKat.getValue().toString().equals(""))
         {
             showInsaneWarning();
             return;
         }
-        controller.addNewCard(txtForeground.getText(), txtBackground.getText(),txtFach.getText().toLowerCase(),txtKat.getText().toLowerCase());
+        controller.addNewCard(txtForeground.getText(), txtBackground.getText(),cbCreateFach.getValue().toString().toLowerCase(),cbCreateKat.getValue().toString().toLowerCase());
         clearAllllll();
         controller.showCard();
     }

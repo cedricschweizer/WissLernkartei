@@ -1,10 +1,7 @@
 package classes;
 
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
@@ -18,11 +15,13 @@ public class LoadDBController {
     String sqlString = "";
     Database db = new Database();
 
+    String sqlFach;
+    String sqlKat;
 
     @FXML
-    TextField txtLoadDBFach;
+    ComboBox cbLoadDBFach;
     @FXML
-    TextField txtLoadDBKat;
+    ComboBox cbLoadDBKat;
 
     public void setMain(Main main){
         this.main = main;
@@ -32,10 +31,17 @@ public class LoadDBController {
     }
 
     public void loadStackDB() throws SQLException {
+
+        ResultSet result = db.select("Select fach, kategorie from WLK;");
+        while (result.next()) {
+            cbLoadDBFach.getItems().add(result.getString("fach"));
+            cbLoadDBKat.getItems().add(result.getString("kategorie"));
+        }
+
         Alert alertWarning = new Alert(Alert.AlertType.WARNING);
         ButtonType cont = new ButtonType("Ja");
         ButtonType canc = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
-        if(txtLoadDBKat.getText() == "" || txtLoadDBFach.getText() == "") {
+        if(cbLoadDBKat.getValue() == "" || cbLoadDBFach.getValue() == "") {
             alertWarning.getButtonTypes().setAll(cont, canc);
             alertWarning.setTitle("Nicht alle Felder ausgefüllt!");
             alertWarning.setHeaderText("Achtung!");
@@ -45,7 +51,7 @@ public class LoadDBController {
                 return;
         }
 
-        sqlString = "where fach like '" + txtLoadDBFach.getText().toLowerCase() + "' and kategorie like '" + txtLoadDBKat.getText().toLowerCase()+"';";
+        sqlString = "where fach like '" + cbLoadDBFach.getValue() + "' and kategorie like '" + cbLoadDBKat.getValue()+"';";
 
         ResultSet rs = db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK " + sqlString);
         ArrayList<Card> tmpList = new ArrayList<>();

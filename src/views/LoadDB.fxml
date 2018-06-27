@@ -7,17 +7,16 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-
 <AnchorPane prefHeight="318.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.LoadDBController">
    <children>
       <VBox layoutX="24.0" layoutY="34.0" spacing="15.0">
          <children>
             <Text layoutX="24.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fach" />
-            <TextField fx:id="txtLoadDBFach" layoutX="24.0" layoutY="64.0" />
+            <ComboBox fx:id="cbLoadDBFach" prefWidth="150.0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kategorie" />
-            <TextField fx:id="txtLoadDBKat" />
+            <ComboBox fx:id="cbLoadDBKat" prefWidth="150.0" />
          </children>
       </VBox>
-      <Button layoutX="83.0" layoutY="208.0" mnemonicParsing="false" onAction="#loadStackDB" text="lod nau" />
+      <Button layoutX="64.0" layoutY="237.0" mnemonicParsing="false" onAction="#loadStackDB" text="lod nau" />
    </children>
 </AnchorPane>

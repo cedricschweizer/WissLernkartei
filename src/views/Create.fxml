@@ -7,24 +7,26 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="414.0" prefWidth="306.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.NewCardControllerererer">
+<AnchorPane prefHeight="505.0" prefWidth="337.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.NewCardControllerererer">
    <children>
-      <VBox layoutX="61.0" layoutY="14.0" spacing="9.0">
+      <VBox layoutX="61.0" layoutY="14.0" prefHeight="440.0" prefWidth="190.0" spacing="9.0">
          <children>
             <Text layoutX="116.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Vorderseite" />
             <TextField fx:id="txtForeground" layoutX="60.0" layoutY="61.0" />
             <Text layoutX="122.0" layoutY="108.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Rückseite" />
             <TextField fx:id="txtBackground" layoutX="60.0" layoutY="120.0" />
             <Text layoutX="123.0" layoutY="174.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fach" />
-            <TextField fx:id="txtFach" />
+            <ComboBox fx:id="cbCreateFach" prefWidth="150.0" />
+            <Button fx:id="btnNeuesFach" mnemonicParsing="false" onAction="#newFach" text="Neues Fach" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kategorie" />
-            <TextField fx:id="txtKat" />
-            <Text layoutX="122.0" layoutY="233.0" strokeType="OUTSIDE" strokeWidth="0.0" text="[Bildpath]" />
-            <TextField fx:id="txtImgPath" editable="false" layoutX="60.0" layoutY="245.0" prefHeight="31.0" prefWidth="137.0" />
+            <ComboBox fx:id="cbCreateKat" prefWidth="150.0" />
+            <Button fx:id="btnNeueKat" mnemonicParsing="false" onAction="#newKat" text="Neue Kategorie" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="[Bildpath]" />
+            <TextField fx:id="txtImgPath" editable="false" prefHeight="31.0" prefWidth="137.0" />
          </children>
       </VBox>
-      <Button layoutX="262.0" layoutY="323.0" mnemonicParsing="false" onAction="#chooseFile" text="..." />
-      <Button layoutX="84.0" layoutY="369.0" mnemonicParsing="false" onAction="#createNew" stylesheets="@../res/style.css" text="Erfassen" />
-      <Button layoutX="168.0" layoutY="369.0" mnemonicParsing="false" onAction="#finish" stylesheets="@../res/style.css" text="Finish" />
+      <Button layoutX="61.0" layoutY="454.0" mnemonicParsing="false" onAction="#createNew" stylesheets="@../res/style.css" text="Erfassen" />
+      <Button layoutX="156.0" layoutY="454.0" mnemonicParsing="false" onAction="#finish" stylesheets="@../res/style.css" text="Finish" />
+      <Button layoutX="266.0" layoutY="402.0" mnemonicParsing="false" onAction="#chooseFile" text="..." />
    </children>
 </AnchorPane>
