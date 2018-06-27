@@ -13,6 +13,7 @@ public class Main extends Application {
     private Stage primaryStage = new Stage();
     private Stage chusStatsch = new Stage();
     private Stage loadDbStage = new Stage();
+    private Stage createKataStage = new Stage();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -36,6 +37,25 @@ public class Main extends Application {
 
             controller.initListener();
             controller.setAPane(pane);
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void createKata(){
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../views/createKata.fxml"));
+            AnchorPane pane = loader.load();
+            KataController controller = loader.getController();
+            controller.setMain(this);
+
+            Scene scene = new Scene(pane);
+            createKataStage.setScene(scene);
+            createKataStage.setResizable(false);
+            createKataStage.setTitle("");
+            createKataStage.show();
+
 
         } catch (Exception e){
             e.printStackTrace();
