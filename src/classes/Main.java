@@ -14,6 +14,7 @@ public class Main extends Application {
     private Stage chusStatsch = new Stage();
     private Stage loadDbStage = new Stage();
     private Stage createKataStage = new Stage();
+    private Stage createFackStage = new Stage();
 
     @Override
     public void start(Stage primaryStage) throws Exception {
@@ -55,6 +56,25 @@ public class Main extends Application {
             createKataStage.setResizable(false);
             createKataStage.setTitle("");
             createKataStage.show();
+
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void createFack(){
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../views/createFack.fxml"));
+            AnchorPane pane = loader.load();
+            FackController controller = loader.getController();
+            controller.setMain(this);
+
+            Scene scene = new Scene(pane);
+            createFackStage.setScene(scene);
+            createFackStage.setResizable(false);
+            createFackStage.setTitle("");
+            createFackStage.show();
 
 
         } catch (Exception e){
