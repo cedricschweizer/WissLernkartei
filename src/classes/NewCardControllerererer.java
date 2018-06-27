@@ -1,5 +1,7 @@
 package classes;
 
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -22,6 +24,7 @@ public class NewCardControllerererer {
     private Main main;
     File filet;
     Controller controller;
+    private String selectedFach;
 
     public void setMain(Main main) throws IOException {
         this.main = main;
@@ -65,11 +68,29 @@ public class NewCardControllerererer {
         txtBackground.setText("");
         filet = null;
     }
+
+    private boolean isTextEmpty(String txt, String origin) {
+        if(txt != null) {
+            if (txt.equals(""))return true;
+            return false;
+        }
+        System.out.println("<3<3<3 Nullpointer: "+origin);
+        return true;
+    }
+
+    private boolean isObjectEmpty(Object obj, String origin) {
+        if(obj != null) {
+            return isTextEmpty(obj.toString(), origin);
+        }
+        System.out.println("<3<3<3 Nullpointer(Object): "+origin);
+        return true;
+    }
+
     public void createNew(){
         try {
             if (filet != null) {
-                if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase("")
-                        || cbCreateFach.getValue().equals("") || cbCreateKat.getValue().equals("")) {
+                if (isTextEmpty(txtForeground.getText(), "txtForeground") || isTextEmpty(txtBackground.getText(), "txtBackground")
+                        || isObjectEmpty(selectedFach, "cbCreateFach") || isObjectEmpty(cbCreateKat.getValue(), "cbCreateKat")) {
                     showInsaneWarning();
                     return;
                 }
@@ -79,8 +100,8 @@ public class NewCardControllerererer {
                 return;
             }
 
-            if (txtForeground.getText().equalsIgnoreCase("") || txtBackground.getText().equalsIgnoreCase("")
-                    || cbCreateFach.getValue().toString().equals("") || cbCreateKat.getValue().toString().equals("")) {
+            if (isTextEmpty(txtForeground.getText(), "txtForegroundNULL") || isTextEmpty(txtBackground.getText(), "txtBackgroundNULL")
+                    || isObjectEmpty(selectedFach, "cbCreateFachNULL") || isObjectEmpty(cbCreateKat.getValue(), "cbCreateKatNULL")) {
                 showInsaneWarning();
                 return;
             }
@@ -106,8 +127,15 @@ public class NewCardControllerererer {
         try {
             while (rsFach.next()){
                 cbCreateFach.getItems().addAll(rsFach.getString("fach"));
-                System.out.println("Added new Fach");
-                System.out.println(rsFach.getString("fach"));
+                System.out.print("Added new Fach: ");
+                System.out.print(rsFach.getString("fach"));
+                cbCreateFach.getSelectionModel().selectedItemProperty()
+                        .addListener(new ChangeListener<String>() {
+                            public void changed(ObservableValue<? extends String> observable,
+                                                String oldValue, String newValue) {
+                                selectedFach = newValue;
+                            }
+                        });
             }
         cbCreateFach = new ComboBox();
         } catch (SQLException e) {
