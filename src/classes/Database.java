@@ -37,7 +37,25 @@ public class Database {
                 + "kategorie nvarchar(200)"
                 + ");";
 
-        System.out.println("Table successfully created!");
+        System.out.println("Table WLK successfully created!");
+
+        try (Connection connection = DriverManager.getConnection(url);
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void createTableFK() {
+
+        String sql = "Create table if not exists FK ( \n"
+                + "id integer primary key autoincrement,\n"
+                + "fach nvarchar(200),\n"
+                + "kategorie nvarchar(200)\n"
+                + ");";
+
+        System.out.println("Table FK successfully created!");
 
         try (Connection connection = DriverManager.getConnection(url);
              Statement stmt = connection.createStatement()) {
@@ -51,6 +69,21 @@ public class Database {
 
         String sql = "INSERT INTO WLK(vorderseite, hinterseite, bild, fach, kategorie)\n"
                 + "VALUES ('"+vds+"', '"+hs+"','"+img+"','"+fach+"','"+kat+"');";
+
+        System.out.println("Successfully inserted data in database!");
+
+        try (Connection connection = DriverManager.getConnection(url);
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void insertFK(String fach, String kat) {
+
+        String sql = "INSERT INTO FK(fach, kategorie)\n"
+                + "VALUES ('"+fach+"', '"+kat+"');";
 
         System.out.println("Successfully inserted data in database!");
 

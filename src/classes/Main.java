@@ -20,6 +20,7 @@ public class Main extends Application {
         MeinWindou();
         db.connect();
         db.createTable();
+        db.createTableFK();
     }
 
     public void MeinWindou(){

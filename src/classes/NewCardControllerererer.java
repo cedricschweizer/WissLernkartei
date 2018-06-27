@@ -10,6 +10,8 @@ import java.io.File;
 
 public class NewCardControllerererer {
 
+    Database db = new Database();
+
     private FileChooser fileChooser = new FileChooser();
     private Main main;
     File filet;
@@ -29,6 +31,8 @@ public class NewCardControllerererer {
     ComboBox cbCreateFach;
     @FXML
     ComboBox cbCreateKat;
+    @FXML
+    TextField txtNewKat;
 
     public void setInitialController(Controller controller){
         this.controller = controller;
@@ -68,6 +72,31 @@ public class NewCardControllerererer {
         clearAllllll();
         controller.showCard();
     }
+
+    public void newFach() {
+        //main.createFach();
+    }
+
+    public void crtNewFach() {
+        db.insertFK(null, txtNewKat.getText());
+    }
+
+    public void fachBack() {
+
+    }
+
+    public void newKat() {
+        main.createKata();
+    }
+
+    public void crtNewKat() {
+        db.insertFK(null, txtNewKat.getText());
+    }
+
+    public void katBack() {
+
+    }
+
     public void finish(){
         main.getChusStatsch().close();
     }

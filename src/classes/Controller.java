@@ -208,14 +208,6 @@ public class Controller {
         }
     }
 
-    public void newFach() {
-
-    }
-
-    public void newKat() {
-
-    }
-
     public void closeApp() {
         System.exit(0);
     }
