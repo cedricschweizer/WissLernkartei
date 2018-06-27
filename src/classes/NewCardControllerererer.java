@@ -1,5 +1,6 @@
 package classes;
 
+import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -25,16 +26,20 @@ public class NewCardControllerererer {
     File filet;
     Controller controller;
     private String selectedFach;
+    private String selectedKat;
 
     public void setMain(Main main) throws IOException {
         this.main = main;
 
         try {
-            ResultSet rs = db.select("select tmpVS, tmpRS, tmpPath from tmp;");
+            ResultSet rs = db.select("select distinct tmpVS, tmpRS, tmpPath from tmp;");
 
             txtForeground.setText(rs.getString("tmpVS"));
+            System.out.println("MÖSE");
             txtBackground.setText(rs.getString("tmpRS"));
+            System.out.println("FLUTSCHER");
             txtImgPath.setText(rs.getString("tmpPath"));
+            System.out.println("SCHWANZ");
         } catch(Exception e) {
             e.printStackTrace();
         }
@@ -90,22 +95,22 @@ public class NewCardControllerererer {
         try {
             if (filet != null) {
                 if (isTextEmpty(txtForeground.getText(), "txtForeground") || isTextEmpty(txtBackground.getText(), "txtBackground")
-                        || isObjectEmpty(selectedFach, "cbCreateFach") || isObjectEmpty(cbCreateKat.getValue(), "cbCreateKat")) {
+                        || isObjectEmpty(selectedFach, "cbCreateFach") || isObjectEmpty(selectedKat, "cbCreateKat")) {
                     showInsaneWarning();
                     return;
                 }
-                controller.addNewCard(txtForeground.getText(), txtBackground.getText(), cbCreateFach.getValue().toString(), cbCreateKat.getValue().toString(), txtImgPath.getText());
+                controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat, txtImgPath.getText());
                 clearAllllll();
                 controller.showCard();
                 return;
             }
 
             if (isTextEmpty(txtForeground.getText(), "txtForegroundNULL") || isTextEmpty(txtBackground.getText(), "txtBackgroundNULL")
-                    || isObjectEmpty(selectedFach, "cbCreateFachNULL") || isObjectEmpty(cbCreateKat.getValue(), "cbCreateKatNULL")) {
+                    || isObjectEmpty(selectedFach, "cbCreateFachNULL") || isObjectEmpty(selectedKat, "cbCreateKatNULL")) {
                 showInsaneWarning();
                 return;
             }
-            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), cbCreateFach.getValue().toString().toLowerCase(), cbCreateKat.getValue().toString().toLowerCase());
+            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat);
             clearAllllll();
             controller.showCard();
         } catch (Exception e) {
@@ -151,6 +156,13 @@ public class NewCardControllerererer {
                 cbCreateKat.getItems().addAll(rsKat.getString("kategorie"));
                 System.out.println("Added new Kategorie");
                 System.out.println(rsKat.getString("kategorie"));
+                cbCreateKat.getSelectionModel().selectedItemProperty()
+                        .addListener(new ChangeListener<String>() {
+                            public void changed(ObservableValue<? extends String> observable,
+                                                String oldValue, String newValue) {
+                                selectedKat = newValue;
+                            }
+                        });
             }
             cbCreateKat = new ComboBox();
         } catch (SQLException e) {
