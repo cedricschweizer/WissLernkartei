@@ -6,10 +6,7 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.Button;
-import javafx.scene.control.ComboBox;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.stage.FileChooser;
 
 import java.io.File;
@@ -17,6 +14,7 @@ import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Optional;
 
 public class NewCardControllerererer {
 
@@ -53,8 +51,15 @@ public class NewCardControllerererer {
     public void chooseFile(){
         fileChooser.setTitle("Plis chus filet uwu");
         filet = fileChooser.showOpenDialog(main.getChusStatsch());
-        if (!(filet.getPath().endsWith(".png")|| filet.getPath().endsWith(".jpg"))){
-            //insert warning here
+        if (!(filet.getPath().endsWith(".png")|| filet.getPath().endsWith(".jpg")) || filet.getPath().endsWith(".jpeg") || filet.getPath().endsWith(".svg") || !filet.getPath().contains(".")){
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            ButtonType OK = new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            alert.getButtonTypes().setAll(OK);
+            alert.setTitle("Falscher Dateityp");
+            alert.setHeaderText("Achtung! Falscher Dateityp");
+            alert.setContentText("Es können nur Bilder mit den Dateitypen \n.png, .jpg (.jpeg) und .svg \ngeladen werden!");
+            alert.show();
             return;
         }
         txtImgPath.setText(filet.getPath());
