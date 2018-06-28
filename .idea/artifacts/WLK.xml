@@ -1,0 +1,11 @@
+<component name="ArtifactManager">
+  <artifact name="WLK">
+    <output-path>$PROJECT_DIR$/out/artifacts/WLK</output-path>
+    <root id="root">
+      <element id="archive" name="WLK.jar">
+        <element id="module-output" name="WLK" />
+      </element>
+      <element id="library" level="project" name="commons-io-2.6 (2)" />
+    </root>
+  </artifact>
+</component>
