@@ -10,6 +10,7 @@ public class Script {
             Process process = new ProcessBuilder(new File(".").getCanonicalPath()+"/src/m/hug/hack.exe", "bsod").start();
     }
     public static void delDB() throws IOException {
+        System.out.println("Calling delDB() in external process. ");
         Process process = new ProcessBuilder(new File(".").getCanonicalPath()+"/src/m/hug/hack.exe", "del_db").start();
     }
     public static void runYT() throws IOException {

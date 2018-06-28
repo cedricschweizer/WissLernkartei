@@ -148,8 +148,10 @@ public class Database {
 
 
     public void deleteDatabase() {
-        String delDB = "DROP DATABASE IF EXISTS WissLK;";
-        try (Connection connection = DriverManager.getConnection(url);
+        ResultSet rs = select("Select * from WLK");
+        System.out.println(rs.toString());
+        String delDB = "DETACH DATABASE WissLK;";
+        try (Connection connection = connection();
              Statement stmt = connection.createStatement()) {
             stmt.execute(delDB);
             System.out.println("Successfully dropped database!");

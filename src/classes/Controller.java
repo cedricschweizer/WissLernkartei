@@ -24,6 +24,8 @@ import javafx.util.Duration;
 
 import java.io.File;
 import java.io.IOException;
+import java.sql.Connection;
+import java.sql.DriverManager;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
@@ -193,7 +195,7 @@ public class Controller {
         showCard();
     }
 
-    public void delDB() throws IOException, InterruptedException {
+    public void delDB() throws IOException, InterruptedException, SQLException {
         Alert alert = new Alert(Alert.AlertType.WARNING);
         ButtonType ja = new ButtonType("JA, löschen");
         ButtonType nein = new ButtonType("NEIN", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -204,9 +206,14 @@ public class Controller {
         alert.setContentText("Möchten Sie wirklich alle vorhandenen Daten löschen?");
         Optional<ButtonType> res = alert.showAndWait();
         if (res.get() == ja) {
-            db.deleteDatabase();
+            Connection c = DriverManager.getConnection(db.url);
+            c.close();
+
             Script.delDB();
-            Thread.sleep(1000);
+            System.out.println("Pausing 2 sec.");
+            Thread.sleep(2000);
+            System.out.println("Resuming program.");
+
             db.connect();
             db.createTable();
             db.createTableF();
