@@ -1,9 +1,13 @@
 package classes;
 
 import javafx.fxml.FXML;
+import javafx.scene.control.Alert;
+import javafx.scene.control.ButtonBar;
+import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
 
 import java.io.IOException;
+import java.util.Optional;
 
 public class KataController {
 
@@ -35,18 +39,31 @@ public class KataController {
 
 
     public void crtNewKat() {
+        Alert alert = new Alert(Alert.AlertType.WARNING);
+        ButtonType OK = new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE);
+        if(txtNewKat.getText().equals("")||txtNewKat.getText().contains(" ")) {
+            alert.getButtonTypes().setAll(OK);
+            alert.setTitle("Achtung");
+            alert.setHeaderText("Falsches Format");
+            alert.setContentText("Die Kategorie darf keine Leerzeichen enthalten oder gar leer sein!");
+            alert.show();
+            txtNewKat.setText("");
+            return;
+        }
+        Alert info = new Alert(Alert.AlertType.INFORMATION);
+        ButtonType oggei = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
+
+        info.getButtonTypes().setAll(oggei);
+        info.setTitle("Information");
+        info.setHeaderText("Kategorie erstellt");
+        info.setContentText("Die Kategorie wurde erfolgreich erstellt!");
+        Optional<ButtonType> res = info.showAndWait();
         db.insertK(txtNewKat.getText());
+        txtNewKat.setText("");
     }
 
     public void katBack() throws IOException {
-        tmpVS = ncontrol.txtForeground.getText();
-        tmpRS = ncontrol.txtBackground.getText();
-        tmpPath = ncontrol.txtImgPath.getText();
-        db.createTableTmp();
-        db.insertTmp(tmpVS, tmpRS, tmpPath);
-
         main.getCreateKataStage().close();
-        main.ChusWindou(control);
     }
 
 }

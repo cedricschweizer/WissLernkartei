@@ -7,6 +7,7 @@ import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ComboBox;
 import javafx.scene.control.TextField;
 import javafx.stage.FileChooser;
@@ -30,21 +31,6 @@ public class NewCardControllerererer {
 
     public void setMain(Main main) throws IOException {
         this.main = main;
-
-        try {
-            ResultSet rs = db.select("select distinct tmpVS, tmpRS, tmpPath from tmp;");
-
-            txtForeground.setText(rs.getString("tmpVS"));
-            System.out.println("MÖSE");
-            txtBackground.setText(rs.getString("tmpRS"));
-            System.out.println("FLUTSCHER");
-            txtImgPath.setText(rs.getString("tmpPath"));
-            System.out.println("SCHWANZ");
-        } catch(Exception e) {
-            e.printStackTrace();
-        }
-
-        db.deleteTableTmp();
     }
 
     @FXML
@@ -57,6 +43,8 @@ public class NewCardControllerererer {
     ComboBox cbCreateFach;
     @FXML
     ComboBox cbCreateKat;
+    @FXML
+    Button btnDruePuenkt;
 
 
     public void setInitialController(Controller controller){
@@ -127,6 +115,7 @@ public class NewCardControllerererer {
     }
 
     public void fachDropped() {
+        cbCreateFach.getItems().clear();
         System.out.println("fachDropped");
         ResultSet rsFach = db.select("Select distinct fach from fach;");
         try {
@@ -134,21 +123,26 @@ public class NewCardControllerererer {
                 cbCreateFach.getItems().addAll(rsFach.getString("fach"));
                 System.out.print("Added new Fach: ");
                 System.out.print(rsFach.getString("fach"));
+                if (selectedFach != null) {
+                    cbCreateFach.setValue(selectedFach);
+                }
                 cbCreateFach.getSelectionModel().selectedItemProperty()
                         .addListener(new ChangeListener<String>() {
                             public void changed(ObservableValue<? extends String> observable,
                                                 String oldValue, String newValue) {
                                 selectedFach = newValue;
+                                checkStatsch();
                             }
                         });
             }
-        cbCreateFach = new ComboBox();
+        //cbCreateFach = new ComboBox();
         } catch (SQLException e) {
             e.printStackTrace();
         }
     }
 
     public void katDropped() {
+        cbCreateKat.getItems().clear();
         System.out.println("katDropped");
         ResultSet rsKat = db.select("Select distinct kategorie from kat;");
         try {
@@ -156,17 +150,31 @@ public class NewCardControllerererer {
                 cbCreateKat.getItems().addAll(rsKat.getString("kategorie"));
                 System.out.println("Added new Kategorie");
                 System.out.println(rsKat.getString("kategorie"));
+                if (selectedKat != null) {
+                    cbCreateKat.setValue(selectedKat);
+                }
                 cbCreateKat.getSelectionModel().selectedItemProperty()
                         .addListener(new ChangeListener<String>() {
                             public void changed(ObservableValue<? extends String> observable,
                                                 String oldValue, String newValue) {
                                 selectedKat = newValue;
+                                checkStatsch();
                             }
                         });
             }
-            cbCreateKat = new ComboBox();
         } catch (SQLException e) {
             e.printStackTrace();
+        }
+    }
+
+    public void checkStatsch() {
+        if (selectedFach!=null && selectedKat!= null) {
+            if(!selectedFach.equals("") && !selectedKat.equals("")) {
+                txtForeground.setDisable(false);
+                txtBackground.setDisable(false);
+                txtImgPath.setDisable(false);
+                btnDruePuenkt.setDisable(false);
+            }
         }
     }
 
@@ -175,9 +183,9 @@ public class NewCardControllerererer {
     }
     private void showInsaneWarning(){
             Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("NOPE");
-            alert.setHeaderText("You missed something :c");
-            alert.setContentText("In order to erfassen a new Karte, you have to füllen les boxes des textes");
+            alert.setTitle("Warnung");
+            alert.setHeaderText("Sie haben etwas vergessen!");
+            alert.setContentText("Bitte füllen Sie alle benötigten Elemente aus (Bildpath nicht nötig)!");
             alert.showAndWait();
     }
 }

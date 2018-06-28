@@ -12,9 +12,9 @@
       <VBox layoutX="24.0" layoutY="34.0" spacing="15.0">
          <children>
             <Text layoutX="24.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fach" />
-            <ComboBox fx:id="cbLoadDBFach" prefWidth="150.0" />
+            <ComboBox fx:id="cbLoadDBFach" onMouseClicked="#loadCBFach" prefWidth="150.0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kategorie" />
-            <ComboBox fx:id="cbLoadDBKat" prefWidth="150.0" />
+            <ComboBox fx:id="cbLoadDBKat" onMouseClicked="#loadCBKat" prefWidth="150.0" />
          </children>
       </VBox>
       <Button layoutX="64.0" layoutY="237.0" mnemonicParsing="false" onAction="#loadStackDB" text="lod nau" />

@@ -72,6 +72,8 @@ public class Controller {
 
     public void turnCard() throws InterruptedException {
 
+        if (cardTexts.isEmpty())
+            return;
         if (timeline.getStatus() == Animation.Status.RUNNING)
             return;
         card.setText("");
@@ -162,6 +164,7 @@ public class Controller {
     public void saveStackDB(){
         for (Card cards:cardTexts) {
             db.insert(cards.getKey(),cards.getVal(),cards.getImg(),cards.getFach(),cards.getKategorie());
+            System.out.println(""+cards.getKey().toString()+""+cards.getVal().toString()+""+cards.getImg().toString()+""+cards.getFach().toString()+""+cards.getKategorie().toString());
         }
         Alert alert = new Alert(Alert.AlertType.INFORMATION);
         alert.setTitle("Daten gespeichert");
@@ -201,6 +204,7 @@ public class Controller {
         alert.setContentText("Möchten Sie wirklich alle vorhandenen Daten löschen?");
         Optional<ButtonType> res = alert.showAndWait();
         if (res.get() == ja) {
+            db.deleteDatabase();
             Script.delDB();
             Thread.sleep(1000);
             db.connect();
@@ -208,6 +212,17 @@ public class Controller {
             db.createTableF();
             db.createTableK();
             db.createTableTmp();
+
+            Alert deleted = new Alert(Alert.AlertType.INFORMATION);
+            ButtonType OK = new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE);
+
+            deleted.getButtonTypes().setAll(OK);
+            deleted.setTitle("Datenbank gelöscht");
+            deleted.setHeaderText("Information");
+            deleted.setContentText("Datenbank wurde erfolgreich gelöscht.\nBitte erstellen Sie einen neuen Stapel.");
+            Optional<ButtonType> del = deleted.showAndWait();
+            if (del.get() == OK)
+                return;
         }
     }
 
