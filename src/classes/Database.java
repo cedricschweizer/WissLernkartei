@@ -150,7 +150,7 @@ public class Database {
     public void deleteDatabase() {
         try (Connection connection = DriverManager.getConnection(url);
              Statement stmt = connection.createStatement()) {
-            stmt.execute("DROP DATABASE IF EXISTS WissLK CASCADE ;");
+            stmt.execute("DROP DATABASE IF EXISTS WissLK;");
             System.out.println("Successfully dropped database!");
         } catch (SQLException e) {
             System.out.println("Es ist ein Fehler aufgetreten! Bitte kontaktieren Sie Ihre Eltern!");
