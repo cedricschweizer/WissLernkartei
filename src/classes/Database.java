@@ -146,31 +146,6 @@ public class Database {
         }
     }
 
-    public void insertTmp(String tmpVS, String tmpRS, String tmpPath) {
-
-        String sql = "INSERT INTO tmp(tmpVS, tmpRS, tmpPath)\n"
-                + "VALUES ('"+tmpVS+"','"+tmpRS+"','"+tmpPath+"');";
-
-        System.out.println("Successfully inserted data in database!");
-
-        try (Connection connection = DriverManager.getConnection(url);
-             Statement stmt = connection.createStatement()) {
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void deleteTableTmp() {
-        try (Connection conn = DriverManager.getConnection(url);
-             Statement statement = conn.createStatement()) {
-            statement.execute("DROP TABLE if EXISTS tmp;");
-            System.out.println("Successfully dropped table!");
-        } catch (SQLException e) {
-            System.out.println("Es ist ein Fehler aufgetreten! Bitte kontaktieren Sie Ihre Eltern!");
-            System.out.println(e.getMessage());
-        }
-    }
 
     public void deleteDatabase() {
         try (Connection connection = DriverManager.getConnection(url);
