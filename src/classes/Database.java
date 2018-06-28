@@ -148,9 +148,10 @@ public class Database {
 
 
     public void deleteDatabase() {
+        String delDB = "DROP DATABASE IF EXISTS WissLK;";
         try (Connection connection = DriverManager.getConnection(url);
              Statement stmt = connection.createStatement()) {
-            stmt.execute("DROP DATABASE IF EXISTS WissLK;");
+            stmt.execute(delDB);
             System.out.println("Successfully dropped database!");
         } catch (SQLException e) {
             System.out.println("Es ist ein Fehler aufgetreten! Bitte kontaktieren Sie Ihre Eltern!");
