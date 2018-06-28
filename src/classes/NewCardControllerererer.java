@@ -24,8 +24,8 @@ public class NewCardControllerererer {
 
     private FileChooser fileChooser = new FileChooser();
     private Main main;
-    File filet;
-    Controller controller;
+    private File filet;
+    private Controller controller;
     private String selectedFach;
     private String selectedKat;
 
@@ -53,6 +53,10 @@ public class NewCardControllerererer {
     public void chooseFile(){
         fileChooser.setTitle("Plis chus filet uwu");
         filet = fileChooser.showOpenDialog(main.getChusStatsch());
+        if (!(filet.getPath().endsWith(".png")|| filet.getPath().endsWith(".jpg"))){
+            //insert warning here
+            return;
+        }
         txtImgPath.setText(filet.getPath());
     }
     private void clearAllllll(){
