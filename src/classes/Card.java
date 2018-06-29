@@ -6,6 +6,7 @@ public class Card {
     private String img = "";
     private String fach = "";
     private String kategorie = "";
+    private boolean isTrap;
 
     public Card(String Key, String Val, String Fach, String Kategorie){
         this.Key = Key;
@@ -32,4 +33,8 @@ public class Card {
     public String getImg(){return this.img;}
     public String getFach(){return this.fach;}
     public String getKategorie(){return this.kategorie;}
+    public boolean getTrap(){return this.isTrap;}
+    public void setTrap(boolean b){
+        this.isTrap = b;
+    }
 }

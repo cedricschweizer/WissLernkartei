@@ -23,7 +23,7 @@ public class Main extends Application {
         db.createTable();
         db.createTableF();
         db.createTableK();
-        db.createTableTmp(); //SRY DIERRRRRRRRY
+        db.createTableTmp();
     }
 
     public void MeinWindou(){

@@ -8,16 +8,14 @@ import javafx.animation.Timeline;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
+import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
@@ -31,9 +29,20 @@ import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
 
+import static java.awt.Color.green;
+
 public class Controller {
 
     private Main main;
+    private int rightAnswers = 0;
+    private int usefulInt = 0;
+    private int falseAnswers = 0;
+    private int uselessInt = 0;
+    boolean playerWentBack;
+    private int cardVal;
+    boolean isDecreasable;
+    int TexteSize;
+    String[] Texte;
 
     @FXML
     TextField card;
@@ -43,6 +52,17 @@ public class Controller {
     ImageView imgBitchSan;
     @FXML
     AnchorPane vidPane;
+    @FXML
+    CheckBox rightAnswer;
+    @FXML
+    CheckBox falseAnswer;
+    @FXML
+    Text learnedPoints;
+    @FXML
+    Text wrongPoints;
+    @FXML
+    Text trueOrFalse;
+
 
     private Database db = new Database();
     private Timeline timeline = new Timeline();
@@ -80,6 +100,7 @@ public class Controller {
             return;
         card.setText("");
 
+
         timeline.setCycleCount(2);
         timeline.setAutoReverse(true);
         final KeyValue kv = new KeyValue(card.prefWidthProperty(), 30);
@@ -90,6 +111,28 @@ public class Controller {
         timeline.getKeyFrames().add(kf2);
         timeline.play();
         turnState = !turnState;
+    }
+
+    public void answeredRight() {
+        rightAnswers++;
+        cardTexts.get(currentCard).setTrap(true);
+        learnedPoints.setText(""+rightAnswers);
+        setCBDisable(true);
+    }
+
+    public void answeredWrong() {
+        falseAnswers++;
+        cardTexts.get(currentCard).setTrap(true);
+        wrongPoints.setText(""+falseAnswers);
+        setCBDisable(true);
+    }
+    private void setCBDisable(boolean b){
+        falseAnswer.setDisable(b);
+        rightAnswer.setDisable(b);
+        falseAnswer.setSelected(false);
+        rightAnswer.setSelected(false);
+        falseAnswer.setVisible(!b);
+        rightAnswer.setVisible(!b);
     }
 
     public void addNewCard(String vds, String rs, String fach, String kategorie) {
@@ -110,6 +153,7 @@ public class Controller {
     }
 
     public void inc() {
+
         if (currentCard + 1 > cardTexts.size() - 1)
             return;
         this.currentCard++;
@@ -135,6 +179,9 @@ public class Controller {
         }
         else {
             card.setText(cardTexts.get(currentCard).getVal());
+            if (!cardTexts.get(currentCard).getTrap()){
+                setCBDisable(false);
+            }
         }
         if (cardTexts.get(currentCard).hasDiggttscher()){
             iameg = new Image("file:" + cardTexts.get(currentCard).getImg());
