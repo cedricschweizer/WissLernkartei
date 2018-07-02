@@ -1,4 +1,6 @@
 package classes;
+import com.sun.org.apache.xpath.internal.SourceTree;
+
 import java.sql.*;
 
 public class Database {
@@ -34,7 +36,8 @@ public class Database {
                 + "hinterseite nvarchar(200),\n"
                 + "bild nvarchar(200),\n"
                 + "fach nvarchar(100),\n"
-                + "kategorie nvarchar(200)"
+                + "kategorie nvarchar(200),\n"
+                + "stack nvarchar(10)\n"
                 + ");";
 
         System.out.println("Table WLK successfully created!");
@@ -101,10 +104,10 @@ public class Database {
     }
 
 
-    public void insert(String vds, String hs, String img, String fach, String kat) {
+    public void insert(String vds, String hs, String img, String fach, String kat, String schtäck) {
 
-        String sql = "INSERT INTO WLK(vorderseite, hinterseite, bild, fach, kategorie)\n"
-                + "VALUES ('"+vds+"', '"+hs+"','"+img+"','"+fach+"','"+kat+"');";
+        String sql = "INSERT INTO WLK(vorderseite, hinterseite, bild, fach, kategorie, stack)\n"
+                + "VALUES ('"+vds+"', '"+hs+"','"+img+"','"+fach+"','"+kat+"','"+schtäck+"');";
 
         System.out.println("Successfully inserted data in database!");
 
@@ -140,6 +143,20 @@ public class Database {
 
         try (Connection connection = DriverManager.getConnection(url);
              Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void update(Card cawdu) {
+        String sql = "UPDATE WLK set stack = "+cawdu.getStack()+" where vorderseite like '"+cawdu.getKey()+"' and " +
+                "hinterseite like '"+cawdu.getVal()+"' and fach like '"+cawdu.getFach()+"' and kategorie like '"+cawdu.getKategorie()+"';";
+
+        System.out.println("Successfully updated kkard with se paranormalmeter "+cawdu.getKey()+cawdu.getVal()+cawdu.getFach()+cawdu.getKategorie());
+
+        try (Connection connection = DriverManager.getConnection(url);
+            Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());

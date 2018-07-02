@@ -6,18 +6,29 @@ public class Card {
     private String img = "";
     private String fach = "";
     private String kategorie = "";
-    private int stack;
+    private int stack = 1;
     private boolean isTrap;
 
-    public Card(String Key, String Val, String Fach, String Kategorie){
+    public Card(String Key, String Val, String Fach, String Kategorie, int Stackl){
         this.Key = Key;
         this.Val = Val;
         this.fach = Fach;
         this.kategorie = Kategorie;
+        this.stack = Stackl;
     }
-    public Card(String Key, String Val, String Fach, String Kategorie, String img){
-        this(Key, Val, Fach, Kategorie);
+    public Card(String Key, String Val, String Fach, String Kategorie, String img, int Stackl){
+        this(Key, Val, Fach, Kategorie, Stackl);
         this.img = img;
+    }
+
+    public void muuf() {
+        if(stack < 5) {
+            stack++;
+        }
+    }
+
+    public void setEis(){
+        stack = 1;
     }
 
     public String getKey(){
@@ -38,4 +49,5 @@ public class Card {
     public void setTrap(boolean b){
         this.isTrap = b;
     }
+    public int getStack() {return this.stack;}
 }

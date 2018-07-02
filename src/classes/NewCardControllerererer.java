@@ -97,7 +97,7 @@ public class NewCardControllerererer {
                     return;
                 }
                 //showRäightKads();
-                controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat, txtImgPath.getText());
+                controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat, txtImgPath.getText(), 1);
                 clearAllllll();
                 controller.showCard();
                 return;
@@ -109,7 +109,7 @@ public class NewCardControllerererer {
                 return;
             }
             //showRäightKads();
-            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat);
+            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat,1);
             clearAllllll();
             controller.showCard();
         } catch (IndexOutOfBoundsException e) {
@@ -124,16 +124,16 @@ public class NewCardControllerererer {
         controller.txtAktuellesFach.setText(selectedFach);
         controller.txtAktuelleKat.setText(selectedKat);
 
-        ResultSet rs = db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK where fach like '" + selectedFach + "' and kategorie like '" + selectedKat + "';");
+        ResultSet rs = db.select("Select vorderseite, hinterseite, bild, fach, kategorie, stack from WLK where fach like '" + selectedFach + "' and kategorie like '" + selectedKat + "';");
         ArrayList<Card> tmpList = new ArrayList<>();
         try {
             while (rs.next()) {
                 if (rs.getString("bild").equals("")) {
                     tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
-                            rs.getString("kategorie")));
+                            rs.getString("kategorie"), ((((((((((((((Integer.parseInt(rs.getString("stack"))))))))))))))))));
                 } else {
                     tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
-                            rs.getString("kategorie"), rs.getString("bild")));
+                            rs.getString("kategorie"), rs.getString("bild"), ((((((((((((((Integer.parseInt(rs.getString("stack"))))))))))))))))));
                 }
             }
             controller.cardTexts = tmpList;

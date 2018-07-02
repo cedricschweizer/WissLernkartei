@@ -8,6 +8,8 @@ import javafx.scene.control.*;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
+import java.util.Collections;
+import java.util.Comparator;
 import java.util.Optional;
 
 public class LoadDBController {
@@ -19,11 +21,14 @@ public class LoadDBController {
 
     String loadDBFach = "";
     String loadDBKat = "";
+    String loadDBStack = "";
 
     @FXML
     ComboBox cbLoadDBFach;
     @FXML
     ComboBox cbLoadDBKat;
+    @FXML
+    ComboBox cbLoadDBStack;
 
     public void setMain(Main main){
         this.main = main;
@@ -34,16 +39,16 @@ public class LoadDBController {
 
     public void loadStackDB() throws SQLException {
 
-        ResultSet rs = db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK where fach like '"+loadDBFach+"' and kategorie like '"+loadDBKat+"';");
+        ResultSet rs = db.select("Select vorderseite, hinterseite, bild, fach, kategorie, stack from WLK where fach like '"+loadDBFach+"' and kategorie like '"+loadDBKat+"' and stack like '"+loadDBStack+"';");
         ArrayList<Card> tmpList = new ArrayList<>();
         try {
             while (rs.next()) {
                 if (rs.getString("bild").equals("")) {
                     tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
-                            rs.getString("kategorie")));
+                            rs.getString("kategorie"), Integer.parseInt(rs.getString("stack"))));
                 } else {
                     tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
-                            rs.getString("kategorie"), rs.getString("bild")));
+                            rs.getString("kategorie"), rs.getString("bild"), Integer.parseInt(rs.getString("stack"))));
                 }
             }
         } catch (Exception e) {
@@ -128,6 +133,30 @@ public class LoadDBController {
                         });
             }
             cbLoadDBKat = new ComboBox();
+        } catch (SQLException e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void loadCBStack() {
+        ResultSet rsLoadStack = db.select("Select distinct stack from WLK;");
+
+        try {
+            while (rsLoadStack.next()) {
+                cbLoadDBStack.getItems().addAll(rsLoadStack.getString("stack"));
+                System.out.print("Stacki: ");
+                System.out.print(rsLoadStack.getString("stack"));
+                cbLoadDBStack.getSelectionModel().selectedItemProperty()
+                        .addListener(new ChangeListener<String>() {
+                            public void changed(ObservableValue<? extends String> observable,
+                                                String oldValue, String newValue) {
+                                loadDBStack = newValue;
+                                System.out.println(loadDBStack);
+                            }
+                        });
+            }
+            cbLoadDBStack = new ComboBox();
+            cbLoadDBStack.getItems().sorted();
         } catch (SQLException e) {
             e.printStackTrace();
         }

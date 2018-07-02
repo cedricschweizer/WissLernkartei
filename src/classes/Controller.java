@@ -47,8 +47,6 @@ public class Controller {
     @FXML
     Text wrongPoints;
     @FXML
-    Text trueOrFalse;
-    @FXML
     Text txtAktuellesFach;
     @FXML
     Text txtAktuelleKat;
@@ -115,6 +113,8 @@ public class Controller {
         cardTexts.get(currentCard).setTrap(true);
         learnedPoints.setText(""+rightAnswers);
         setCBDisable(true);
+        cardTexts.get(currentCard).muuf();
+        db.update(cardTexts.get(currentCard));
     }
 
     public void answeredWrong() {
@@ -122,6 +122,8 @@ public class Controller {
         cardTexts.get(currentCard).setTrap(true);
         wrongPoints.setText(""+falseAnswers);
         setCBDisable(true);
+        cardTexts.get(currentCard).setEis();
+        db.update(cardTexts.get(currentCard));
     }
     private void setCBDisable(boolean b){
         falseAnswer.setDisable(b);
@@ -132,11 +134,11 @@ public class Controller {
         rightAnswer.setVisible(!b);
     }
 
-    public void addNewCard(String vds, String rs, String fach, String kategorie) {
-        cardTexts.add(new Card(vds, rs, fach, kategorie));
+    public void addNewCard(String vds, String rs, String fach, String kategorie, int stackl) {
+        cardTexts.add(new Card(vds, rs, fach, kategorie, stackl));
     }
-    public void addNewCard(String vds, String rs, String imgPath, String fach, String kategorie){
-        cardTexts.add(new Card(vds, rs, imgPath, fach, kategorie));
+    public void addNewCard(String vds, String rs, String imgPath, String fach, String kategorie, int staggl){
+        cardTexts.add(new Card(vds, rs, imgPath, fach, kategorie, staggl));
     }
 
     public void initListener() {
@@ -205,22 +207,11 @@ public class Controller {
         main.ChusWindou(this);
     }
 
-    public void saveStackFile() throws IOException {
-        String saveFile;
-
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Wo soll Ihr Filet gespeichert werden?");
-        FileChooser.ExtensionFilter filtu = new FileChooser.ExtensionFilter("TXT Files (*.txt)","*.txt");
-        fc.getExtensionFilters().add(filtu);
-        File filette = fc.showSaveDialog(main.getPrimaryStage());
-        MapParser mapParser = new MapParser(filette.getAbsolutePath());
-        mapParser.writeCurrentStack(cardTexts);
-    }
     public void saveStackDB(){
         if(!cardTexts.isEmpty()) {
             for (Card cards : cardTexts) {
-                db.insert(cards.getKey(), cards.getVal(), cards.getImg(), cards.getFach(), cards.getKategorie());
-                System.out.println("" + cards.getKey().toString() + "" + cards.getVal().toString() + "" + cards.getImg().toString() + "" + cards.getFach().toString() + "" + cards.getKategorie().toString());
+                db.insert(cards.getKey(), cards.getVal(), cards.getImg(), cards.getFach(), cards.getKategorie(), String.valueOf(cards.getStack()));
+                System.out.println(" " + cards.getKey().toString() + " " + cards.getVal().toString() + " " + cards.getImg().toString() + " " + cards.getFach().toString() + " " + cards.getKategorie().toString() + " " + String.valueOf(cards.getStack()));
             }
             Alert alert = new Alert(Alert.AlertType.INFORMATION);
             alert.setTitle("Daten gespeichert");
@@ -251,8 +242,6 @@ public class Controller {
         FileChooser fc = new FileChooser();
         fc.setTitle("Plis chus filet uwu");
         File filet = fc.showOpenDialog(main.getPrimaryStage());
-        MapParser mapParser = new MapParser(filet.getAbsolutePath());
-        cardTexts = mapParser.loadStackFromFilet();
         showCard();
     }
 

@@ -7,16 +7,22 @@
 <?import javafx.scene.control.*?>
 <?import javafx.scene.layout.*?>
 
-<AnchorPane prefHeight="318.0" prefWidth="235.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.LoadDBController">
+<AnchorPane prefHeight="342.0" prefWidth="200.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.LoadDBController">
    <children>
-      <VBox layoutX="24.0" layoutY="34.0" spacing="15.0">
+      <VBox layoutX="24.0" layoutY="34.0" prefHeight="248.0" prefWidth="150.0" spacing="15.0">
          <children>
             <Text layoutX="24.0" layoutY="50.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Fach" />
             <ComboBox fx:id="cbLoadDBFach" onMouseClicked="#loadCBFach" prefWidth="150.0" />
             <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Kategorie" />
             <ComboBox fx:id="cbLoadDBKat" onMouseClicked="#loadCBKat" prefWidth="150.0" />
+            <Text strokeType="OUTSIDE" strokeWidth="0.0" text="Stapel" />
+            <ComboBox fx:id="cbLoadDBStack" onMouseClicked="#loadCBStack" prefWidth="150.0">
+               <cursor>
+                  <Cursor fx:constant="DISAPPEAR" />
+               </cursor>
+            </ComboBox>
          </children>
       </VBox>
-      <Button layoutX="64.0" layoutY="237.0" mnemonicParsing="false" onAction="#loadStackDB" text="lod nau" />
+      <Button layoutX="64.0" layoutY="290.0" mnemonicParsing="false" onAction="#loadStackDB" text="lod nau" />
    </children>
 </AnchorPane>
