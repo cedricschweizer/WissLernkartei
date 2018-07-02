@@ -96,6 +96,7 @@ public class NewCardControllerererer {
                     showInsaneWarning();
                     return;
                 }
+                //showRäightKads();
                 controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat, txtImgPath.getText());
                 clearAllllll();
                 controller.showCard();
@@ -107,10 +108,38 @@ public class NewCardControllerererer {
                 showInsaneWarning();
                 return;
             }
+            //showRäightKads();
             controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat);
             clearAllllll();
             controller.showCard();
+        } catch (IndexOutOfBoundsException e) {
+
+            e.printStackTrace();
         } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    public void showRäightKads() {
+        controller.txtAktuellesFach.setText(selectedFach);
+        controller.txtAktuelleKat.setText(selectedKat);
+
+        ResultSet rs = db.select("Select vorderseite, hinterseite, bild, fach, kategorie from WLK where fach like '" + selectedFach + "' and kategorie like '" + selectedKat + "';");
+        ArrayList<Card> tmpList = new ArrayList<>();
+        try {
+            while (rs.next()) {
+                if (rs.getString("bild").equals("")) {
+                    tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
+                            rs.getString("kategorie")));
+                } else {
+                    tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
+                            rs.getString("kategorie"), rs.getString("bild")));
+                }
+            }
+            controller.cardTexts = tmpList;
+            controller.setCurrentCard(0);
+            controller.showCard();
+        } catch (SQLException e) {
             e.printStackTrace();
         }
     }

@@ -36,7 +36,7 @@ public class Main extends Application {
             Scene scene = new Scene(pane);
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
-            primaryStage.setTitle("");
+            primaryStage.setTitle("WISS Lernkartei");
             primaryStage.show();
 
             controller.initListener();

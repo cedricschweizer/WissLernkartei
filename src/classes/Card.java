@@ -6,6 +6,7 @@ public class Card {
     private String img = "";
     private String fach = "";
     private String kategorie = "";
+    private int stack;
     private boolean isTrap;
 
     public Card(String Key, String Val, String Fach, String Kategorie){

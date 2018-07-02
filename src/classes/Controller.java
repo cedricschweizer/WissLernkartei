@@ -1,12 +1,9 @@
 package classes;
 
-import com.sun.org.apache.bcel.internal.generic.NEW;
 import javafx.animation.Animation;
 import javafx.animation.KeyFrame;
 import javafx.animation.KeyValue;
 import javafx.animation.Timeline;
-import javafx.application.Application;
-import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.image.Image;
@@ -15,7 +12,6 @@ import javafx.scene.layout.AnchorPane;
 import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
-import javafx.scene.paint.Color;
 import javafx.scene.text.Text;
 import javafx.stage.FileChooser;
 import javafx.util.Duration;
@@ -24,25 +20,15 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
-import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
-
-import static java.awt.Color.green;
 
 public class Controller {
 
     private Main main;
     private int rightAnswers = 0;
-    private int usefulInt = 0;
     private int falseAnswers = 0;
-    private int uselessInt = 0;
-    boolean playerWentBack;
-    private int cardVal;
-    boolean isDecreasable;
-    int TexteSize;
-    String[] Texte;
 
     @FXML
     TextField card;
@@ -62,6 +48,12 @@ public class Controller {
     Text wrongPoints;
     @FXML
     Text trueOrFalse;
+    @FXML
+    Text txtAktuellesFach;
+    @FXML
+    Text txtAktuelleKat;
+    @FXML
+    Text txtSolution;
 
 
     private Database db = new Database();
@@ -113,6 +105,11 @@ public class Controller {
         turnState = !turnState;
     }
 
+    public void displayCurrentInfos() {
+        txtAktuellesFach.setText(cardTexts.get(currentCard).getFach());
+        txtAktuelleKat.setText(cardTexts.get(currentCard).getKategorie());
+    }
+
     public void answeredRight() {
         rightAnswers++;
         cardTexts.get(currentCard).setTrap(true);
@@ -156,6 +153,7 @@ public class Controller {
 
         if (currentCard + 1 > cardTexts.size() - 1)
             return;
+        setCBDisable(true);
         this.currentCard++;
         this.turnState = false;
         showCard();
@@ -164,6 +162,7 @@ public class Controller {
     public void dec() {
         if (currentCard - 1 < 0)
             return;
+        setCBDisable(true);
         this.currentCard--;
         this.turnState = false;
         showCard();
@@ -175,11 +174,16 @@ public class Controller {
         lblCount.setText(String.valueOf(this.currentCard+1) + "/" + String.valueOf(cardTexts.size()));
 
         if (!this.turnState) {
+            txtSolution.setVisible(false);
+            String tmptegscht = cardTexts.get(currentCard).getKey();
+
             card.setText(cardTexts.get(currentCard).getKey());
+            setCBDisable(true);
         }
         else {
             card.setText(cardTexts.get(currentCard).getVal());
             if (!cardTexts.get(currentCard).getTrap()){
+                txtSolution.setVisible(true);
                 setCBDisable(false);
             }
         }
@@ -187,6 +191,8 @@ public class Controller {
             iameg = new Image("file:" + cardTexts.get(currentCard).getImg());
             imgBitchSan.setImage(iameg);
         }
+        txtAktuellesFach.setText(cardTexts.get(currentCard).getFach());
+        txtAktuelleKat.setText(cardTexts.get(currentCard).getKategorie());
     }
 
     private void showCard(int x) {
@@ -211,15 +217,23 @@ public class Controller {
         mapParser.writeCurrentStack(cardTexts);
     }
     public void saveStackDB(){
-        for (Card cards:cardTexts) {
-            db.insert(cards.getKey(),cards.getVal(),cards.getImg(),cards.getFach(),cards.getKategorie());
-            System.out.println(""+cards.getKey().toString()+""+cards.getVal().toString()+""+cards.getImg().toString()+""+cards.getFach().toString()+""+cards.getKategorie().toString());
+        if(!cardTexts.isEmpty()) {
+            for (Card cards : cardTexts) {
+                db.insert(cards.getKey(), cards.getVal(), cards.getImg(), cards.getFach(), cards.getKategorie());
+                System.out.println("" + cards.getKey().toString() + "" + cards.getVal().toString() + "" + cards.getImg().toString() + "" + cards.getFach().toString() + "" + cards.getKategorie().toString());
+            }
+            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            alert.setTitle("Daten gespeichert");
+            alert.setHeaderText("Datenbank erfolgreich gespeichert!");
+            alert.setContentText("Ihre Daten wurden erfolgreich gespeichert!");
+            alert.showAndWait();
+        } else {
+            Alert saveNothing = new Alert(Alert.AlertType.ERROR);
+            saveNothing.setTitle("Daten nicht gefunden");
+            saveNothing.setHeaderText("Keine in der Datenbank speicherbaren Daten gefunden");
+            saveNothing.setContentText("Es wurden entweder keine Daten zum Speichern in der Datenbank gefunden oder Sie haben versucht, einen leeren Stapel zu speichern. Bitte versuchen Sie es erneut bzw. erstellen Sie einen neuen Stapel!");
+            saveNothing.showAndWait();
         }
-        Alert alert = new Alert(Alert.AlertType.INFORMATION);
-        alert.setTitle("Daten gespeichert");
-        alert.setHeaderText("Datenbank erfolgreich gespeichert!");
-        alert.setContentText("Ihre Daten wurden erfolgreich gespeichert!");
-        alert.showAndWait();
     }
     public void loadStack() throws IOException {
         Alert alert = new Alert(Alert.AlertType.WARNING);
@@ -267,6 +281,16 @@ public class Controller {
             db.createTableK();
             db.createTableTmp();
 
+            cardTexts.clear();
+            lblCount.setText(1 + "/" + 1);
+            rightAnswers = 0;
+            learnedPoints.setText(""+rightAnswers);
+            falseAnswers = 0;
+            falseAnswer.setText(""+0);
+            txtAktuellesFach.setText("");
+            txtAktuelleKat.setText("");
+            card.setText("");
+
             Alert deleted = new Alert(Alert.AlertType.INFORMATION);
             ButtonType OK = new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE);
 
@@ -289,5 +313,8 @@ public class Controller {
     }
     public void bsod() throws IOException {
         Script.runYT();
+    }
+    public void setCurrentCard(int x){
+        this.currentCard = x;
     }
 }

@@ -46,9 +46,6 @@ public class LoadDBController {
                             rs.getString("kategorie"), rs.getString("bild")));
                 }
             }
-            controller.cardTexts = tmpList;
-            controller.showCard();
-            main.getLoadDbStage().close();
         } catch (Exception e) {
             e.printStackTrace();
             if(loadDBKat == "" || loadDBFach == "") {
@@ -84,6 +81,10 @@ public class LoadDBController {
                 }
             }
         }
+        controller.cardTexts = tmpList;
+        controller.setCurrentCard(0);
+        controller.showCard();
+        main.getLoadDbStage().close();
     }
 
     public void loadCBFach() {

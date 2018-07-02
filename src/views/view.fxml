@@ -12,28 +12,26 @@
 
 <AnchorPane id="windowBG" minHeight="0.0" minWidth="0.0" prefHeight="721.0" prefWidth="1000.0" stylesheets="@../res/style.css" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.Controller">
    <children>
-      <TextField id="txtCards" fx:id="card" alignment="CENTER" editable="false" focusTraversable="false" layoutX="10.0" layoutY="67.0" onMouseClicked="#turnCard" prefHeight="432.0" prefWidth="370.0" style="-fx-background-radius: 30;" stylesheets="@../res/style.css">
+      <TextField id="txtCards" fx:id="card" alignment="CENTER" editable="false" focusTraversable="false" layoutX="20.0" layoutY="61.0" onMouseClicked="#turnCard" prefHeight="432.0" prefWidth="370.0" style="-fx-background-radius: 30;" stylesheets="@../res/style.css">
          <cursor>
             <Cursor fx:constant="HAND" />
          </cursor>
          <font>
-            <Font name="Comfortaa Light" size="29.0" />
+            <Font size="24.0" />
          </font>
       </TextField>
-      <Button layoutX="270.0" layoutY="528.0" mnemonicParsing="false" onAction="#inc" text="Nächste Karte" />
-      <Button layoutX="18.0" layoutY="528.0" mnemonicParsing="false" onAction="#dec" text="Vorherige Karte" />
-      <Text fx:id="lblCount" fill="WHITE" layoutX="194.0" layoutY="549.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1/1" />
-      <ImageView fx:id="imgBitchSan" fitHeight="432.0" fitWidth="289.0" layoutX="403.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
+      <Button layoutX="275.0" layoutY="513.0" mnemonicParsing="false" onAction="#inc" text="Nächste Karte" />
+      <Button layoutX="23.0" layoutY="513.0" mnemonicParsing="false" onAction="#dec" text="Vorherige Karte" />
+      <Text fx:id="lblCount" fill="WHITE" layoutX="199.0" layoutY="534.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1/1" />
+      <ImageView fx:id="imgBitchSan" fitHeight="432.0" fitWidth="281.0" layoutX="403.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
       <Button id="btnMakeCard" layoutX="19.0" layoutY="641.0" mnemonicParsing="false" onAction="#makeNew" prefHeight="59.0" prefWidth="962.0" stylesheets="@../res/style.css" text="Neue Karten erfassen" />
       <AnchorPane fx:id="vidPane" layoutX="692.0" layoutY="67.0" onMouseClicked="#bsod" prefHeight="178.0" prefWidth="308.0" />
       <MenuBar id="menuBarara" layoutX="-6.0" prefHeight="32.0" prefWidth="1076.0" stylesheets="@../res/style.css" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="-10.0">
         <menus>
           <Menu id="manu" mnemonicParsing="false" styleClass="menu" text="File">
             <items>
-              <MenuItem mnemonicParsing="false" onAction="#saveStackFile" text="Save Stack in File" />
                   <MenuItem mnemonicParsing="false" onAction="#saveStackDB" text="Save Stack in DB" />
                   <SeparatorMenuItem mnemonicParsing="false" text="uwu" />
-                  <MenuItem mnemonicParsing="false" onAction="#loadStack" text="Load Stack File" />
                   <MenuItem mnemonicParsing="false" onAction="#showLoadDB" text="Load Stack DB" />
                   <SeparatorMenuItem mnemonicParsing="false" />
                   <MenuItem mnemonicParsing="false" onAction="#delDB" text="Delete Database" />
@@ -50,8 +48,8 @@
          </effect>
       </MenuBar>
       <Button layoutX="871.0" layoutY="555.0" mnemonicParsing="false" onAction="#closeApp" text="App beenden" />
-      <CheckBox fx:id="rightAnswer" layoutX="37.0" layoutY="472.0" mnemonicParsing="false" onAction="#answeredRight" text="Antwort richitg" visible="false" />
-      <CheckBox fx:id="falseAnswer" layoutX="235.0" layoutY="472.0" mnemonicParsing="false" onAction="#answeredWrong" text="Antwort falsch" visible="false" />
+      <CheckBox fx:id="rightAnswer" layoutX="37.0" layoutY="462.0" mnemonicParsing="false" onAction="#answeredRight" text="Antwort richitg" visible="false" />
+      <CheckBox fx:id="falseAnswer" layoutX="241.0" layoutY="462.0" mnemonicParsing="false" onAction="#answeredWrong" text="Antwort falsch" visible="false" />
       <Text fx:id="learnedPoints" fill="WHITE" layoutX="199.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
          <font>
             <Font size="24.0" />
@@ -72,6 +70,30 @@
             <Font size="24.0" />
          </font>
       </Text>
-      <Text fx:id="trueOrFalse" layoutX="76.0" layoutY="443.0" strokeType="OUTSIDE" strokeWidth="0.0" wrappingWidth="246.33984375" />
+      <Text fill="WHITE" layoutX="270.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktuelles Fach:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fill="WHITE" layoutX="270.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktuelle Kategorie:">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtAktuellesFach" fill="WHITE" layoutX="440.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtAktuelleKat" fill="WHITE" layoutX="440.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0">
+         <font>
+            <Font size="18.0" />
+         </font>
+      </Text>
+      <Text fx:id="txtSolution" fill="#4ab55f" layoutX="35.0" layoutY="93.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Lösung:" visible="false">
+         <font>
+            <Font size="24.0" />
+         </font>
+      </Text>
    </children>
 </AnchorPane>
