@@ -16,7 +16,6 @@ public class LoadDBController {
 
     private Main main;
     private Controller controller;
-    String sqlString = "";
     Database db = new Database();
 
     String loadDBFach = "";
@@ -29,9 +28,14 @@ public class LoadDBController {
     ComboBox cbLoadDBKat;
     @FXML
     ComboBox cbLoadDBStack;
+    @FXML
+    Button btnLoad;
 
     public void setMain(Main main){
         this.main = main;
+        loadCBfach();
+        loadCBkat();
+        loadCBstack();
     }
     public void setNativeController(Controller controller){
         this.controller = controller;
@@ -53,7 +57,7 @@ public class LoadDBController {
             }
         } catch (Exception e) {
             e.printStackTrace();
-            if(loadDBKat == "" || loadDBFach == "") {
+            if(loadDBKat == "" || loadDBFach == "" || loadDBStack == "") {
                 Alert warnungAusfuellen = new Alert(Alert.AlertType.WARNING);
                 ButtonType oggei = new ButtonType("Ja, ich habe verstanden und zeige mich demütig uwu", ButtonBar.ButtonData.CANCEL_CLOSE);
                 warnungAusfuellen.setTitle("Achtung");
@@ -64,7 +68,7 @@ public class LoadDBController {
                     return;
             }
             else {
-                if(!loadDBFach.equals("") && !loadDBKat.equals("")) {
+                if(!loadDBFach.equals("") && !loadDBKat.equals("") && !loadDBStack.equals("")) {
                     Alert warnung = new Alert(Alert.AlertType.ERROR);
                     ButtonType ok = new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE);
                     warnung.setTitle("Kategoriefehler");
@@ -92,7 +96,7 @@ public class LoadDBController {
         main.getLoadDbStage().close();
     }
 
-    public void loadCBFach() {
+    public void loadCBfach() {
         ResultSet rsLoadFach = db.select("Select distinct fach from fach;");
 
         try {
@@ -105,17 +109,18 @@ public class LoadDBController {
                             public void changed(ObservableValue<? extends String> observable,
                                                 String oldValue, String newValue) {
                                 loadDBFach = newValue;
+                               //checkSTATSCH();
                                 System.out.println(loadDBFach);
                             }
                         });
             }
-            cbLoadDBFach = new ComboBox();
-        } catch (SQLException e) {
+            //cbLoadDBFach = new ComboBox();
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void loadCBKat() {
+    public void loadCBkat() {
         ResultSet rsLoadKat = db.select("Select distinct kategorie from kat;");
 
         try {
@@ -128,18 +133,20 @@ public class LoadDBController {
                             public void changed(ObservableValue<? extends String> observable,
                                                 String oldValue, String newValue) {
                                 loadDBKat = newValue;
+                                //checkSTATSCH();
                                 System.out.println(loadDBKat);
                             }
                         });
             }
-            cbLoadDBKat = new ComboBox();
-        } catch (SQLException e) {
+            //cbLoadDBKat = new ComboBox();
+            //cbLoadDBStack.setDisable(buuleen());
+        } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public void loadCBStack() {
-        ResultSet rsLoadStack = db.select("Select distinct stack from WLK;");
+    public void loadCBstack() {
+        ResultSet rsLoadStack = db.select("Select distinct stack from WLK where fach like '" + loadDBFach + "' and kategorie like '" + loadDBKat + "';");
 
         try {
             while (rsLoadStack.next()) {
@@ -151,14 +158,39 @@ public class LoadDBController {
                             public void changed(ObservableValue<? extends String> observable,
                                                 String oldValue, String newValue) {
                                 loadDBStack = newValue;
+                                //checkBöttn();
                                 System.out.println(loadDBStack);
                             }
                         });
             }
-            cbLoadDBStack = new ComboBox();
-            cbLoadDBStack.getItems().sorted();
-        } catch (SQLException e) {
+            //cbLoadDBStack = new ComboBox();
+            //cbLoadDBStack.setDisable(buuleen());
+        } catch (Exception e) {
             e.printStackTrace();
         }
+    }
+
+    public boolean buuleen() {
+        if(!loadDBFach.equals("") && !loadDBKat.equals(""))
+        {
+            return false;
+        } else return true;
+    }
+
+    public void checkSTATSCH() {
+
+    }
+
+    public void riiset() {
+        main.LoadDB(controller);
+    }
+
+    public void checkBöttn() {
+        if(!loadDBStack.equals("")) {
+            btnLoad.setDisable(false);
+            cbLoadDBFach.setDisable(true);
+            cbLoadDBKat.setDisable(true);
+            System.out.println("schud bi diseibld");
+        } else btnLoad.setDisable(true);
     }
 }
