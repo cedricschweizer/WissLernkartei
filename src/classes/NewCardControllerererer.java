@@ -144,10 +144,7 @@ public class NewCardControllerererer {
         }
     }
 
-    public void newFach() {
-        main.createFack(this, controller);
-    }
-
+    public void newFach() { main.createFack(this, controller); }
     public void newKat() {
         main.createKata(this, controller);
     }

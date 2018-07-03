@@ -1,11 +1,22 @@
 <component name="ArtifactManager">
   <artifact type="javafx" name="WLK">
     <output-path>$PROJECT_DIR$/out/artifacts/WLK</output-path>
+    <properties id="javafx-properties">
+      <options>
+        <option name="appClass" value="classes.Main" />
+        <option name="description" value="" />
+        <option name="htmlPlaceholderId" value="" />
+        <option name="nativeBundle" value="all" />
+        <option name="title" value="wlk" />
+        <option name="vendor" value="" />
+        <option name="version" value="" />
+      </options>
+    </properties>
     <root id="root">
       <element id="archive" name="WLK.jar">
         <element id="module-output" name="WLK" />
+        <element id="library" level="project" name="commons-io-2.6 (2)" />
       </element>
-      <element id="library" level="project" name="commons-io-2.6 (2)" />
     </root>
   </artifact>
 </component>

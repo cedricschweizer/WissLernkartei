@@ -105,13 +105,10 @@ public class LoadDBController {
                 System.out.print("Fach: ");
                 System.out.print(rsLoadFach.getString("fach"));
                 cbLoadDBFach.getSelectionModel().selectedItemProperty()
-                        .addListener(new ChangeListener<String>() {
-                            public void changed(ObservableValue<? extends String> observable,
-                                                String oldValue, String newValue) {
-                                loadDBFach = newValue;
-                               //checkSTATSCH();
-                                System.out.println(loadDBFach);
-                            }
+                        .addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+                            loadDBFach = newValue;
+                           //checkSTATSCH();
+                            System.out.println(loadDBFach);
                         });
             }
             //cbLoadDBFach = new ComboBox();
