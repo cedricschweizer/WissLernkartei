@@ -4,12 +4,11 @@ import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
+import javafx.scene.text.Text;
 
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
-import java.util.Collections;
-import java.util.Comparator;
 import java.util.Optional;
 
 public class LoadDBController {
@@ -18,9 +17,13 @@ public class LoadDBController {
     private Controller controller;
     Database db = new Database();
 
+
     String loadDBFach = "";
     String loadDBKat = "";
     String loadDBStack = "";
+    boolean böleanKattlä;
+    boolean böleanFack;
+    boolean böleanStaggl;
 
     @FXML
     ComboBox cbLoadDBFach;
@@ -30,34 +33,34 @@ public class LoadDBController {
     ComboBox cbLoadDBStack;
     @FXML
     Button btnLoad;
+    @FXML
+    Text textDate;
+    @FXML
+    Button btnConfirm;
 
     public void setMain(Main main){
         this.main = main;
-        loadCBfach();
-        loadCBkat();
-        loadCBstack();
     }
     public void setNativeController(Controller controller){
         this.controller = controller;
     }
 
     public void loadStackDB() throws SQLException {
-
-        ResultSet rs = db.select("Select vorderseite, hinterseite, bild, fach, kategorie, stack from WLK where fach like '"+loadDBFach+"' and kategorie like '"+loadDBKat+"' and stack like '"+loadDBStack+"';");
+        ResultSet rs = db.select("Select id, vorderseite, hinterseite, bild, fach, kategorie, stack, time from WLK where fach like '" + loadDBFach + "' and kategorie like '" + loadDBKat + "' and stack like '" + loadDBStack + "';");
         ArrayList<Card> tmpList = new ArrayList<>();
         try {
             while (rs.next()) {
                 if (rs.getString("bild").equals("")) {
-                    tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
-                            rs.getString("kategorie"), Integer.parseInt(rs.getString("stack"))));
+                    tmpList.add(new Card(Integer.parseInt(rs.getString("id")), rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
+                            rs.getString("kategorie"), Integer.parseInt(rs.getString("stack")), rs.getTimestamp("time")));
                 } else {
-                    tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
-                            rs.getString("kategorie"), rs.getString("bild"), Integer.parseInt(rs.getString("stack"))));
+                    tmpList.add(new Card(Integer.parseInt(rs.getString("id")), rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
+                            rs.getString("kategorie"), rs.getString("bild"), Integer.parseInt(rs.getString("stack")), rs.getTimestamp("time")));
                 }
             }
         } catch (Exception e) {
             e.printStackTrace();
-            if(loadDBKat == "" || loadDBFach == "" || loadDBStack == "") {
+            if (loadDBKat == "" || loadDBFach == "" || loadDBStack == "") {
                 Alert warnungAusfuellen = new Alert(Alert.AlertType.WARNING);
                 ButtonType oggei = new ButtonType("Ja, ich habe verstanden und zeige mich demütig uwu", ButtonBar.ButtonData.CANCEL_CLOSE);
                 warnungAusfuellen.setTitle("Achtung");
@@ -66,9 +69,8 @@ public class LoadDBController {
                 Optional<ButtonType> res = warnungAusfuellen.showAndWait();
                 if (res.get() == oggei)
                     return;
-            }
-            else {
-                if(!loadDBFach.equals("") && !loadDBKat.equals("") && !loadDBStack.equals("")) {
+            } else {
+                if (!loadDBFach.equals("") && !loadDBKat.equals("") && !loadDBStack.equals("")) {
                     Alert warnung = new Alert(Alert.AlertType.ERROR);
                     ButtonType ok = new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE);
                     warnung.setTitle("Kategoriefehler");
@@ -77,8 +79,7 @@ public class LoadDBController {
                     Optional<ButtonType> res = warnung.showAndWait();
                     if (res.get() == ok)
                         return;
-                }
-                else {
+                } else {
                     Alert warnung = new Alert(Alert.AlertType.ERROR);
                     ButtonType ok = new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE);
                     warnung.setTitle("FEHLER");
@@ -97,85 +98,123 @@ public class LoadDBController {
     }
 
     public void loadCBfach() {
+        checkStatsch();
         ResultSet rsLoadFach = db.select("Select distinct fach from fach;");
-
         try {
-            while (rsLoadFach.next()) {
-                cbLoadDBFach.getItems().addAll(rsLoadFach.getString("fach"));
-                System.out.print("Fach: ");
-                System.out.print(rsLoadFach.getString("fach"));
-                cbLoadDBFach.getSelectionModel().selectedItemProperty()
-                        .addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
-                            loadDBFach = newValue;
-                           //checkSTATSCH();
-                            System.out.println(loadDBFach);
-                        });
+            if(!böleanFack) {
+                while (rsLoadFach.next()) {
+                    cbLoadDBFach.getItems().addAll(rsLoadFach.getString("fach"));
+                    böleanFack = true;
+                    System.out.print("Fach: ");
+                    System.out.print(rsLoadFach.getString("fach"));
+                }
             }
-            //cbLoadDBFach = new ComboBox();
+            cbLoadDBFach.getSelectionModel().selectedItemProperty()
+                    .addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
+                        loadDBFach = newValue;
+                        //checkSTATSCH();
+                        System.out.println(loadDBFach);
+                    });
+            System.out.println(""+loadDBFach);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadCBkat() {
+        checkStatsch();
         ResultSet rsLoadKat = db.select("Select distinct kategorie from kat;");
-
         try {
-            while (rsLoadKat.next()) {
-                cbLoadDBKat.getItems().addAll(rsLoadKat.getString("kategorie"));
-                System.out.print("Kategorie: ");
-                System.out.print(rsLoadKat.getString("kategorie"));
-                cbLoadDBKat.getSelectionModel().selectedItemProperty()
-                        .addListener(new ChangeListener<String>() {
-                            public void changed(ObservableValue<? extends String> observable,
-                                                String oldValue, String newValue) {
-                                loadDBKat = newValue;
-                                //checkSTATSCH();
-                                System.out.println(loadDBKat);
-                            }
-                        });
+            if(!böleanKattlä) {
+                while (rsLoadKat.next()) {
+                    cbLoadDBKat.getItems().addAll(rsLoadKat.getString("kategorie"));
+                    böleanKattlä = true;
+                    System.out.print("Kategorie: ");
+                    System.out.print(rsLoadKat.getString("kategorie"));
+                }
             }
-            //cbLoadDBKat = new ComboBox();
-            //cbLoadDBStack.setDisable(buuleen());
+            cbLoadDBKat.getSelectionModel().selectedItemProperty()
+                    .addListener(new ChangeListener<String>() {
+                        public void changed(ObservableValue<? extends String> observable,
+                                            String oldValue, String newValue) {
+                            loadDBKat = newValue;
+                            //checkSTATSCH();
+                            System.out.println(loadDBKat);
+                        }
+                    });
+            System.out.println(""+loadDBKat);
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
     public void loadCBstack() {
+        checkStatsch();
         ResultSet rsLoadStack = db.select("Select distinct stack from WLK where fach like '" + loadDBFach + "' and kategorie like '" + loadDBKat + "';");
-
         try {
-            while (rsLoadStack.next()) {
-                cbLoadDBStack.getItems().addAll(rsLoadStack.getString("stack"));
-                System.out.print("Stacki: ");
-                System.out.print(rsLoadStack.getString("stack"));
-                cbLoadDBStack.getSelectionModel().selectedItemProperty()
-                        .addListener(new ChangeListener<String>() {
-                            public void changed(ObservableValue<? extends String> observable,
-                                                String oldValue, String newValue) {
-                                loadDBStack = newValue;
-                                //checkBöttn();
-                                System.out.println(loadDBStack);
-                            }
-                        });
+            if (!böleanStaggl){
+                while (rsLoadStack.next()) {
+                    cbLoadDBStack.getItems().addAll(rsLoadStack.getString("stack"));
+                    böleanStaggl = true;
+                    System.out.print("Stacki: ");
+                    System.out.print(rsLoadStack.getString("stack"));
+                }
             }
-            //cbLoadDBStack = new ComboBox();
-            //cbLoadDBStack.setDisable(buuleen());
+            cbLoadDBStack.getSelectionModel().selectedItemProperty()
+                    .addListener(new ChangeListener<String>() {
+                        public void changed(ObservableValue<? extends String> observable,
+                                            String oldValue, String newValue) {
+                            loadDBStack = newValue;
+                            System.out.println(loadDBStack);
+                        }
+                    });
+            System.out.println(""+loadDBStack);
+            if(cbLoadDBStack.getItems().isEmpty()) {
+                main.LoadDB(controller);
+                Alert fehler = new Alert(Alert.AlertType.ERROR);
+                fehler.setTitle("Error");
+                fehler.setHeaderText("Fehler!");
+                fehler.setContentText("Fach und Kategorie passen nicht zusammen oder es sind noch keine Stapel darin vorhanden!");
+                fehler.showAndWait();
+            }
         } catch (Exception e) {
             e.printStackTrace();
         }
     }
 
-    public boolean buuleen() {
-        if(!loadDBFach.equals("") && !loadDBKat.equals(""))
-        {
-            return false;
-        } else return true;
+    public void confirm() {
+        if(!loadDBFach.equals("") && !loadDBKat.equals("") && !loadDBStack.equals("")) {
+            setDate();
+            btnConfirm.setDisable(true);
+            btnLoad.setDisable(false);
+        } else {
+            Alert alert = new Alert(Alert.AlertType.ERROR);
+            alert.setTitle("Error");
+            alert.setHeaderText("Felder nicht ausgefüllt!");
+            alert.setContentText("Sie haben nicht alle Felder ausgefüllt. Bitte tun Sie dies, bevor Sie auf 'Bestätigen' drücken.");
+            alert.show();
+        }
     }
 
-    public void checkSTATSCH() {
+    public void setDate() {
+        if(!loadDBFach.equals("") && !loadDBKat.equals("") && !loadDBStack.equals("")) {
+            ResultSet rsDate = db.select("Select time from WLK where fach like '"+loadDBFach+"' and kategorie like '"+loadDBKat+"' and stack like '"+loadDBStack+"' order by time desc;");
+            System.out.println("select durchgeführt");
+            try {
+                textDate.setText("Zuletzt gelernt: \n\n"+rsDate.getString("time"));
+                System.out.println("Date selected!");
+            } catch (SQLException e) {
+                e.printStackTrace();
+            }
+        }
+    }
 
+    public void checkStatsch() {
+        if(!loadDBFach.equals("") && !loadDBKat.equals("") && !loadDBStack.equals("")) {
+            cbLoadDBStack.setDisable(true);
+            cbLoadDBFach.setDisable(true);
+            cbLoadDBKat.setDisable(true);
+        }
     }
 
     public void riiset() {

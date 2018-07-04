@@ -1,5 +1,4 @@
 package classes;
-import com.sun.org.apache.xpath.internal.SourceTree;
 
 import java.sql.*;
 
@@ -37,7 +36,8 @@ public class Database {
                 + "bild nvarchar(200),\n"
                 + "fach nvarchar(100),\n"
                 + "kategorie nvarchar(200),\n"
-                + "stack nvarchar(10)\n"
+                + "stack nvarchar(10),\n"
+                + "time timestamp \n"
                 + ");";
 
         System.out.println("Table WLK successfully created!");
@@ -103,11 +103,42 @@ public class Database {
         }
     }
 
+    public void createSuperSafetyTabulettteee() {
 
-    public void insert(String vds, String hs, String img, String fach, String kat, String schtäck) {
+        String sql = "Create table if not exists superSafetyTabulettteee ( \n"
+                + "id integer primary key autoincrement,\n"
+                + "password nvarchar(1000000)"
+                + ");";
 
-        String sql = "INSERT INTO WLK(vorderseite, hinterseite, bild, fach, kategorie, stack)\n"
-                + "VALUES ('"+vds+"', '"+hs+"','"+img+"','"+fach+"','"+kat+"','"+schtäck+"');";
+        System.out.println("Table tmp successfully created!");
+
+        try (Connection connection = DriverManager.getConnection(url);
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void insertSST(String password) {
+
+        String sql = "INSERT INTO superSafetyTabulettteee(password)\n"
+                + "VALUES ('"+password+"');";
+
+        System.out.println("Successfully inserted data in database!");
+
+        try (Connection connection = DriverManager.getConnection(url);
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void insert(String vds, String hs, String img, String fach, String kat, String schtäck, Timestamp time) {
+
+        String sql = "INSERT INTO WLK(vorderseite, hinterseite, bild, fach, kategorie, stack, time)\n"
+                + "VALUES ('"+vds+"', '"+hs+"','"+img+"','"+fach+"','"+kat+"','"+schtäck+"', '"+time+"');";
 
         System.out.println("Successfully inserted data in database!");
 
@@ -144,6 +175,15 @@ public class Database {
         try (Connection connection = DriverManager.getConnection(url);
              Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void updateCards(String update) {
+        try (Connection connection = DriverManager.getConnection(url);
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(update);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }

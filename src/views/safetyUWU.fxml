@@ -1,0 +1,17 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.text.*?>
+<?import java.lang.*?>
+<?import java.util.*?>
+<?import javafx.scene.*?>
+<?import javafx.scene.control.*?>
+<?import javafx.scene.layout.*?>
+
+<AnchorPane prefHeight="245.0" prefWidth="437.0" xmlns="http://javafx.com/javafx/8" xmlns:fx="http://javafx.com/fxml/1" fx:controller="classes.SafetyUWU">
+   <children>
+      <Text layoutX="80.0" layoutY="88.0" strokeType="OUTSIDE" strokeWidth="0.0" text="plyys täip in se supr seif pässwöärdleli" />
+      <TextArea fx:id="txtPW" layoutX="80.0" layoutY="132.0" prefHeight="33.0" prefWidth="250.0" />
+      <Button fx:id="btnPW" layoutX="98.0" layoutY="182.0" mnemonicParsing="false" onAction="#checkopenwindof" text="schö sui sür gö se schüssteee" />
+      <Button layoutX="343.0" layoutY="133.0" mnemonicParsing="false" onAction="#returnHome" text="je wö bäck" />
+   </children>
+</AnchorPane>

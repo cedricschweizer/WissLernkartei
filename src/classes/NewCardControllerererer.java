@@ -1,10 +1,7 @@
 package classes;
 
-import com.sun.scenario.effect.impl.sw.sse.SSEBlend_SRC_OUTPeer;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
-import javafx.collections.FXCollections;
-import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.stage.FileChooser;
@@ -13,8 +10,9 @@ import java.io.File;
 import java.io.IOException;
 import java.sql.ResultSet;
 import java.sql.SQLException;
-import java.util.ArrayList;
-import java.util.Optional;
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
 
 public class NewCardControllerererer {
 
@@ -26,6 +24,9 @@ public class NewCardControllerererer {
     private Controller controller;
     private String selectedFach;
     private String selectedKat;
+    Calendar calendar = Calendar.getInstance();
+    Date now = calendar.getTime();
+    Timestamp time = new java.sql.Timestamp(now.getTime());
 
     public void setMain(Main main) throws IOException {
         this.main = main;
@@ -97,7 +98,7 @@ public class NewCardControllerererer {
                     return;
                 }
                 //showRäightKads();
-                controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat, txtImgPath.getText(), 1);
+                controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat, txtImgPath.getText(), 1, time);
                 clearAllllll();
                 controller.showCard();
                 return;
@@ -109,7 +110,7 @@ public class NewCardControllerererer {
                 return;
             }
             //showRäightKads();
-            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat,1);
+            controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat,1,time);
             clearAllllll();
             controller.showCard();
         } catch (IndexOutOfBoundsException e) {
@@ -120,17 +121,18 @@ public class NewCardControllerererer {
         }
     }
 
-    public void showRäightKads() {
+
+    /*public void showRäightKads() {
         controller.txtAktuellesFach.setText(selectedFach);
         controller.txtAktuelleKat.setText(selectedKat);
 
-        ResultSet rs = db.select("Select vorderseite, hinterseite, bild, fach, kategorie, stack from WLK where fach like '" + selectedFach + "' and kategorie like '" + selectedKat + "';");
+        ResultSet rs = db.select("Select vorderseite, hinterseite, bild, fach, kategorie, time stack from WLK where fach like '" + selectedFach + "' and kategorie like '" + selectedKat + "';");
         ArrayList<Card> tmpList = new ArrayList<>();
         try {
             while (rs.next()) {
                 if (rs.getString("bild").equals("")) {
                     tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
-                            rs.getString("kategorie"), ((((((((((((((Integer.parseInt(rs.getString("stack"))))))))))))))))));
+                            rs.getString("kategorie"), Integer.parseInt(rs.getString("stack"), rs.getString("time"))));
                 } else {
                     tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
                             rs.getString("kategorie"), rs.getString("bild"), ((((((((((((((Integer.parseInt(rs.getString("stack"))))))))))))))))));
@@ -142,7 +144,7 @@ public class NewCardControllerererer {
         } catch (SQLException e) {
             e.printStackTrace();
         }
-    }
+    }*/
 
     public void newFach() { main.createFack(this, controller); }
     public void newKat() {

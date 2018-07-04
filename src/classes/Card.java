@@ -1,5 +1,9 @@
 package classes;
 
+import java.sql.Timestamp;
+import java.util.Calendar;
+import java.util.Date;
+
 public class Card {
     private String Key;
     private String Val;
@@ -7,17 +11,33 @@ public class Card {
     private String fach = "";
     private String kategorie = "";
     private int stack = 1;
+    private int id = -1;
     private boolean isTrap;
+    public boolean isLearned;
+    Calendar calendar = Calendar.getInstance();
+    Date now = calendar.getTime();
+    Timestamp time = new java.sql.Timestamp(now.getTime());
 
-    public Card(String Key, String Val, String Fach, String Kategorie, int Stackl){
+
+    public Card(String Key, String Val, String Fach, String Kategorie, int Stackl, Timestamp time){
         this.Key = Key;
         this.Val = Val;
         this.fach = Fach;
         this.kategorie = Kategorie;
         this.stack = Stackl;
+        this.time = time;
     }
-    public Card(String Key, String Val, String Fach, String Kategorie, String img, int Stackl){
-        this(Key, Val, Fach, Kategorie, Stackl);
+    public Card(String Key, String Val, String Fach, String Kategorie, String img, int Stackl, Timestamp time){
+        this(Key, Val, Fach, Kategorie, Stackl, time);
+        this.img = img;
+    }
+    public Card(int id, String Key, String Val, String Fach, String Kategorie, int Stackl, Timestamp time){
+        this(Key, Val, Fach, Kategorie, Stackl, time);
+        this.id = id;
+    }
+    public Card(int id, String Key, String Val, String Fach, String Kategorie, String img, int Stackl, Timestamp time){
+        this(Key, Val, Fach, Kategorie, Stackl, time);
+        this.id = id;
         this.img = img;
     }
 
@@ -27,7 +47,7 @@ public class Card {
         }
     }
 
-    public void setEis(){
+    public void setEis() {
         stack = 1;
     }
 
@@ -46,8 +66,16 @@ public class Card {
     public String getFach(){return this.fach;}
     public String getKategorie(){return this.kategorie;}
     public boolean getTrap(){return this.isTrap;}
+    public boolean isLearned() {return this.isLearned;}
     public void setTrap(boolean b){
         this.isTrap = b;
     }
     public int getStack() {return this.stack;}
+
+    public Timestamp getTime() {
+        return new Timestamp(now.getTime());
+    }
+    public int getId(){
+        return this.id;
+    }
 }

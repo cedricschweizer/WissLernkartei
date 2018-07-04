@@ -20,7 +20,7 @@
             <Font size="24.0" />
          </font>
       </TextField>
-      <Button layoutX="275.0" layoutY="513.0" mnemonicParsing="false" onAction="#inc" text="Nächste Karte" />
+      <Button fx:id="btnInc" layoutX="275.0" layoutY="513.0" mnemonicParsing="false" onAction="#inc" text="Nächste Karte" />
       <Button layoutX="23.0" layoutY="513.0" mnemonicParsing="false" onAction="#dec" text="Vorherige Karte" />
       <Text fx:id="lblCount" fill="WHITE" layoutX="199.0" layoutY="534.0" strokeType="OUTSIDE" strokeWidth="0.0" text="1/1" />
       <ImageView fx:id="imgBitchSan" fitHeight="432.0" fitWidth="281.0" layoutX="403.0" layoutY="67.0" pickOnBounds="true" preserveRatio="true" />
@@ -30,11 +30,11 @@
         <menus>
           <Menu id="manu" mnemonicParsing="false" styleClass="menu" text="File">
             <items>
-                  <MenuItem mnemonicParsing="false" onAction="#saveStackDB" text="Save Stack in DB" />
+                  <MenuItem mnemonicParsing="false" onAction="#saveStackDB" text="Stapel speichern" />
                   <SeparatorMenuItem mnemonicParsing="false" text="uwu" />
-                  <MenuItem mnemonicParsing="false" onAction="#showLoadDB" text="Load Stack DB" />
+                  <MenuItem mnemonicParsing="false" onAction="#showLoadDB" text="Stapel laden" />
                   <SeparatorMenuItem mnemonicParsing="false" />
-                  <MenuItem mnemonicParsing="false" onAction="#delDB" text="Delete Database" />
+                  <MenuItem mnemonicParsing="false" onAction="#delDB" text="Datenbank löschen" />
             </items>
           </Menu>
           <Menu id="manu3" mnemonicParsing="false" styleClass="menu" text="Exec">

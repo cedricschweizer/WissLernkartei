@@ -24,6 +24,7 @@ public class Main extends Application {
         db.createTableF();
         db.createTableK();
         db.createTableTmp();
+        db.createSuperSafetyTabulettteee();
     }
 
     public void MeinWindou(){
@@ -118,6 +119,24 @@ public class Main extends Application {
             primaryStage.setScene(scene);
             primaryStage.setResizable(false);
             primaryStage.setTitle("Exec uwu");
+            primaryStage.show();
+
+        } catch (Exception e){
+            e.printStackTrace();
+        }
+    }
+
+    public void SSP(){
+        try {
+            FXMLLoader loader = new FXMLLoader(Main.class.getResource("../views/safetyUWU.fxml"));
+            AnchorPane pane = loader.load();
+            SafetyUWU cntrl = loader.getController();
+            cntrl.setMain(this);
+
+            Scene scene = new Scene(pane);
+            primaryStage.setScene(scene);
+            primaryStage.setResizable(false);
+            primaryStage.setTitle("entréè süpé bien mot de passe stp!");
             primaryStage.show();
 
         } catch (Exception e){

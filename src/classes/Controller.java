@@ -13,14 +13,13 @@ import javafx.scene.media.Media;
 import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
-import javafx.stage.FileChooser;
 import javafx.util.Duration;
 
-import java.io.File;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
 import java.sql.SQLException;
+import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Optional;
 
@@ -52,6 +51,8 @@ public class Controller {
     Text txtAktuelleKat;
     @FXML
     Text txtSolution;
+    @FXML
+    Button btnInc;
 
 
     private Database db = new Database();
@@ -103,21 +104,37 @@ public class Controller {
         turnState = !turnState;
     }
 
-    public void displayCurrentInfos() {
-        txtAktuellesFach.setText(cardTexts.get(currentCard).getFach());
-        txtAktuelleKat.setText(cardTexts.get(currentCard).getKategorie());
-    }
-
     public void answeredRight() {
+        cardTexts.get(currentCard).isLearned = true;
         rightAnswers++;
         cardTexts.get(currentCard).setTrap(true);
         learnedPoints.setText(""+rightAnswers);
         setCBDisable(true);
         cardTexts.get(currentCard).muuf();
         db.update(cardTexts.get(currentCard));
+        Alert info = new Alert(Alert.AlertType.NONE);
+        ButtonType jawoll = new ButtonType("Ja, speichern");
+        ButtonType nain = new ButtonType("Nein, ich kann selber speichern du Affe", ButtonBar.ButtonData.CANCEL_CLOSE);
+        info.getButtonTypes().removeAll();
+        info.getButtonTypes().addAll(jawoll, nain);
+        info.setResizable(true);
+
+        info.setTitle("Fortschritt speichern");
+        info.setHeaderText("GUT GEMACHT!");
+        info.setContentText("Sie haben alle Karten durchgelernt. Möchten Sie Ihren Fortschritt speichern?");
+        for (Card kaads : cardTexts) {
+            if (!kaads.isLearned())
+                return;
+        }
+        Optional<ButtonType> buttons = info.showAndWait();
+        if (buttons.get() == jawoll) {
+            saveStackDB();
+            return;
+        } else return;
     }
 
     public void answeredWrong() {
+        cardTexts.get(currentCard).isLearned = false;
         falseAnswers++;
         cardTexts.get(currentCard).setTrap(true);
         wrongPoints.setText(""+falseAnswers);
@@ -134,11 +151,11 @@ public class Controller {
         rightAnswer.setVisible(!b);
     }
 
-    public void addNewCard(String vds, String rs, String fach, String kategorie, int stackl) {
-        cardTexts.add(new Card(vds, rs, fach, kategorie, stackl));
+    public void addNewCard(String vds, String rs, String fach, String kategorie, int stackl, Timestamp time) {
+        cardTexts.add(new Card(vds, rs, fach, kategorie, stackl, time));
     }
-    public void addNewCard(String vds, String rs, String imgPath, String fach, String kategorie, int staggl){
-        cardTexts.add(new Card(vds, rs, imgPath, fach, kategorie, staggl));
+    public void addNewCard(String vds, String rs, String imgPath, String fach, String kategorie, int staggl, Timestamp time){
+        cardTexts.add(new Card(vds, rs, imgPath, fach, kategorie, staggl, time));
     }
 
     public void initListener() {
@@ -148,11 +165,22 @@ public class Controller {
     }
 
     public void showLoadDB(){
-        main.LoadDB(this);
+        Alert warnungDatenverlust = new Alert(Alert.AlertType.NONE);
+        ButtonType oge = new ButtonType("OK");
+        ButtonType cancel = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
+        warnungDatenverlust.getButtonTypes().removeAll();
+        warnungDatenverlust.getButtonTypes().addAll(oge, cancel);
+
+        warnungDatenverlust.setTitle("Warnung");
+        warnungDatenverlust.setHeaderText("Datenverlust");
+        warnungDatenverlust.setContentText("Alle nicht gespeicherten Änderungen werden verworfen. Speichern Sie alle neu erstellten Karten ab oder speichern Sie ihren Fortschritt");
+        Optional<ButtonType> buttons = warnungDatenverlust.showAndWait();
+        if (buttons.get() == oge) {
+            main.LoadDB(this);
+        }
     }
 
     public void inc() {
-
         if (currentCard + 1 > cardTexts.size() - 1)
             return;
         setCBDisable(true);
@@ -177,7 +205,6 @@ public class Controller {
 
         if (!this.turnState) {
             txtSolution.setVisible(false);
-            String tmptegscht = cardTexts.get(currentCard).getKey();
 
             card.setText(cardTexts.get(currentCard).getKey());
             setCBDisable(true);
@@ -210,10 +237,15 @@ public class Controller {
     public void saveStackDB(){
         if(!cardTexts.isEmpty()) {
             for (Card cards : cardTexts) {
-                db.insert(cards.getKey(), cards.getVal(), cards.getImg(), cards.getFach(), cards.getKategorie(), String.valueOf(cards.getStack()));
-                System.out.println(" " + cards.getKey().toString() + " " + cards.getVal().toString() + " " + cards.getImg().toString() + " " + cards.getFach().toString() + " " + cards.getKategorie().toString() + " " + String.valueOf(cards.getStack()));
+                if (cards.getId() == -1){
+                    db.insert(cards.getKey(), cards.getVal(), cards.getImg(), cards.getFach(), cards.getKategorie(), String.valueOf(cards.getStack()), cards.getTime());
+                    System.out.println(" " + cards.getKey().toString() + " " + cards.getVal().toString() + " " + cards.getImg().toString() + " " + cards.getFach().toString() + " " + cards.getKategorie().toString() + " " + String.valueOf(cards.getStack()) + " " + String.valueOf(cards.getTime()));
+
+                } else {
+                    db.updateCards("Update WLK set time = "+cards.getTime()+" where id = "+cards.getId() +";");
+                }
             }
-            Alert alert = new Alert(Alert.AlertType.INFORMATION);
+            Alert alert = new Alert(Alert.AlertType.WARNING);
             alert.setTitle("Daten gespeichert");
             alert.setHeaderText("Datenbank erfolgreich gespeichert!");
             alert.setContentText("Ihre Daten wurden erfolgreich gespeichert!");
@@ -225,24 +257,6 @@ public class Controller {
             saveNothing.setContentText("Es wurden entweder keine Daten zum Speichern in der Datenbank gefunden oder Sie haben versucht, einen leeren Stapel zu speichern. Bitte versuchen Sie es erneut bzw. erstellen Sie einen neuen Stapel!");
             saveNothing.showAndWait();
         }
-    }
-    public void loadStack() throws IOException {
-        Alert alert = new Alert(Alert.AlertType.WARNING);
-        ButtonType cont = new ButtonType("Continue");
-        ButtonType nope = new ButtonType("Cancel", ButtonBar.ButtonData.CANCEL_CLOSE);
-
-        alert.getButtonTypes().setAll(cont, nope);
-        alert.setTitle("Obstacles foreseen uwu");
-        alert.setHeaderText("Attention");
-        alert.setContentText("All changes on the current stack will be lost.\nContinue?");
-        Optional<ButtonType> res = alert.showAndWait();
-        if (res.get() == nope)
-            return;
-
-        FileChooser fc = new FileChooser();
-        fc.setTitle("Plis chus filet uwu");
-        File filet = fc.showOpenDialog(main.getPrimaryStage());
-        showCard();
     }
 
     public void delDB() throws IOException, InterruptedException, SQLException {
@@ -269,6 +283,7 @@ public class Controller {
             db.createTableF();
             db.createTableK();
             db.createTableTmp();
+            db.createSuperSafetyTabulettteee();
 
             cardTexts.clear();
             lblCount.setText(1 + "/" + 1);
@@ -279,6 +294,7 @@ public class Controller {
             txtAktuellesFach.setText("");
             txtAktuelleKat.setText("");
             card.setText("");
+            txtSolution.setVisible(false);
 
             Alert deleted = new Alert(Alert.AlertType.INFORMATION);
             ButtonType OK = new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE);
@@ -294,11 +310,23 @@ public class Controller {
     }
 
     public void closeApp() {
+        Alert warnungDatenverlust = new Alert(Alert.AlertType.NONE);
+        ButtonType oge = new ButtonType("OK");
+        ButtonType cancel = new ButtonType("Abbrechen", ButtonBar.ButtonData.CANCEL_CLOSE);
+        warnungDatenverlust.getButtonTypes().removeAll();
+        warnungDatenverlust.getButtonTypes().addAll(oge, cancel);
+
+        warnungDatenverlust.setTitle("Warnung");
+        warnungDatenverlust.setHeaderText("Wirklich beenden? Achtung Datenverlust");
+        warnungDatenverlust.setContentText("Alle nicht gespeicherten Änderungen werden verworfen. Speichern Sie alle neu erstellten Karten ab oder speichern Sie ihren Fortschritt.");
+        Optional<ButtonType> buttons = warnungDatenverlust.showAndWait();
+        if(buttons.get() == oge)
         System.exit(0);
+        else return;
     }
 
     public void execWindow(){
-        main.ExecWin();
+        main.SSP();
     }
     public void bsod() throws IOException {
         Script.runYT();
