@@ -271,7 +271,10 @@ public class Controller {
                     System.out.println(" " + cards.getKey().toString() + " " + cards.getVal().toString() + " " + cards.getImg().toString() + " " + cards.getFach().toString() + " " + cards.getKategorie().toString() + " " + String.valueOf(cards.getStack()) + " " + String.valueOf(cards.getTime()));
 
                 } else {
-                    db.updateCards("Update WLK set time = "+cards.getTime()+" where id = "+cards.getId() +";");
+                    db.updateCards("Update WLK set time = '"+cards.getTime()+"' where id = '"+cards.getId()+"';");
+                    System.out.println("Time: "+cards.getTime());
+                    System.out.println("ID: "+cards.getId());
+                    System.out.println("updated time");
                 }
             }
             Alert alert = new Alert(Alert.AlertType.WARNING);
