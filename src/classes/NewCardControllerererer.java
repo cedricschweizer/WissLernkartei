@@ -14,6 +14,11 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * class that controls the process of creating a new card
+ * @author Cédric Schweizer
+ */
+
 public class NewCardControllerererer {
 
     Database db = new Database();
@@ -50,7 +55,7 @@ public class NewCardControllerererer {
         this.controller = controller;
     }
     public void chooseFile(){
-        fileChooser.setTitle("Plis chus filet uwu");
+        fileChooser.setTitle("Bitte wählen Sie ein Bild");
         filet = fileChooser.showOpenDialog(main.getChusStatsch());
         if (!(filet.getPath().endsWith(".png")|| filet.getPath().endsWith(".jpg")) || filet.getPath().endsWith(".jpeg") || filet.getPath().endsWith(".svg") || !filet.getPath().contains(".")){
             Alert alert = new Alert(Alert.AlertType.ERROR);
@@ -77,7 +82,7 @@ public class NewCardControllerererer {
             if (txt.equals(""))return true;
             return false;
         }
-        System.out.println("<3<3<3 Nullpointer: "+origin);
+        System.out.println("<3<3<3 Nullpointer: "+origin);      //sum interesting debugging
         return true;
     }
 
@@ -85,7 +90,7 @@ public class NewCardControllerererer {
         if(obj != null) {
             return isTextEmpty(obj.toString(), origin);
         }
-        System.out.println("<3<3<3 Nullpointer(Object): "+origin);
+        System.out.println("<3<3<3 Nullpointer(Object): "+origin);      //same
         return true;
     }
 
@@ -97,7 +102,6 @@ public class NewCardControllerererer {
                     showInsaneWarning();
                     return;
                 }
-                //showRäightKads();
                 controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat, txtImgPath.getText(), 1, time);
                 clearAllllll();
                 controller.showCard();
@@ -109,7 +113,6 @@ public class NewCardControllerererer {
                 showInsaneWarning();
                 return;
             }
-            //showRäightKads();
             controller.addNewCard(txtForeground.getText(), txtBackground.getText(), selectedFach, selectedKat,1,time);
             clearAllllll();
             controller.showCard();
@@ -121,32 +124,8 @@ public class NewCardControllerererer {
         }
     }
 
-
-    /*public void showRäightKads() {
-        controller.txtAktuellesFach.setText(selectedFach);
-        controller.txtAktuelleKat.setText(selectedKat);
-
-        ResultSet rs = db.select("Select vorderseite, hinterseite, bild, fach, kategorie, time stack from WLK where fach like '" + selectedFach + "' and kategorie like '" + selectedKat + "';");
-        ArrayList<Card> tmpList = new ArrayList<>();
-        try {
-            while (rs.next()) {
-                if (rs.getString("bild").equals("")) {
-                    tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
-                            rs.getString("kategorie"), Integer.parseInt(rs.getString("stack"), rs.getString("time"))));
-                } else {
-                    tmpList.add(new Card(rs.getString("vorderseite"), rs.getString("hinterseite"), rs.getString("fach"),
-                            rs.getString("kategorie"), rs.getString("bild"), ((((((((((((((Integer.parseInt(rs.getString("stack"))))))))))))))))));
-                }
-            }
-            controller.cardTexts = tmpList;
-            controller.setCurrentCard(0);
-            controller.showCard();
-        } catch (SQLException e) {
-            e.printStackTrace();
-        }
-    }*/
-
     public void newFach() { main.createFack(this, controller); }
+
     public void newKat() {
         main.createKata(this, controller);
     }
@@ -172,7 +151,6 @@ public class NewCardControllerererer {
                             }
                         });
             }
-        //cbCreateFach = new ComboBox();
         } catch (SQLException e) {
             e.printStackTrace();
         }

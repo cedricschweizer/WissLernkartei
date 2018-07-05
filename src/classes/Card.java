@@ -4,6 +4,12 @@ import java.sql.Timestamp;
 import java.util.Calendar;
 import java.util.Date;
 
+/**
+ * Card class with several constructors and attributes for the card
+ * @author Thierry Beer, Cédric Schweizer
+ */
+
+
 public class Card {
     private String Key;
     private String Val;
@@ -47,22 +53,19 @@ public class Card {
             stack++;
         }
     }
-
-    public void setEis() {
-        stack = 1;
-    }
-
-    public String getKey(){
-        return this.Key;
-    }
     public boolean hasDiggttscher(){
         if (img != null)
             if (!img.equals(""))
                 return true;
         return false;
     }
-    public String getVal() { return this.Val;
+    public void setEis() {
+        stack = 1;
     }
+    public String getKey(){
+        return this.Key;
+    }
+    public String getVal() { return this.Val;}
     public String getImg(){return this.img;}
     public String getFach(){return this.fach;}
     public String getKategorie(){return this.kategorie;}
@@ -73,7 +76,6 @@ public class Card {
         this.isTrap = b;
     }
     public int getStack() {return this.stack;}
-
     public Timestamp getTime() {
         return new Timestamp(now.getTime());
     }

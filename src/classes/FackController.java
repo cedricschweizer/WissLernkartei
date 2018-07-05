@@ -5,17 +5,15 @@ import javafx.scene.control.Alert;
 import javafx.scene.control.ButtonBar;
 import javafx.scene.control.ButtonType;
 import javafx.scene.control.TextField;
-
 import java.io.IOException;
 import java.util.Optional;
 
-public class FackController {
+/**
+ * controller for the window "Fach" | inserts Fach in table fach in DB
+ * @author Thierry Beer
+ */
 
-    String tmpVS = "";
-    String tmpRS = "";
-    String tmpFach = "";
-    String tmpKat = "";
-    String tmpPath = "";
+public class FackController {
 
     Database db = new Database();
 

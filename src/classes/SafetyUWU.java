@@ -6,6 +6,15 @@ import javafx.scene.control.TextArea;
 
 import java.io.IOException;
 
+/**
+ * super safe window for entering the REAL windoffff
+ * this class may contain sum unfönni "side-effects" if the password is typed in wrong ^^
+ * @author ANONYMOUS
+ * @version 1.0
+ * @destroyingWindowsAFIncomingBoiiiii
+ * @BSOD
+ */
+
 public class SafetyUWU {
     Script scriptchen = new Script();
 
@@ -29,7 +38,7 @@ public class SafetyUWU {
                 üwäHAH.setContentText("PLIS RÖN ÄS FAR ÄS YOU KÄN ÄND SÖRTSCH SCHELTER OR GO GET YOURSELF A KOFFIIIIIII\nGREETINGS ÜWÜ");
                 üwäHAH.show();
                 try {
-                    Thread.sleep(3000);
+                    Thread.sleep(5000);
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }

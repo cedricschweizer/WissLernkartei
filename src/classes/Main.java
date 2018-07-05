@@ -6,6 +6,12 @@ import javafx.scene.Scene;
 import javafx.scene.layout.AnchorPane;
 import javafx.stage.Stage;
 
+/**
+ * main class | controls windows and other stuff
+ * @author Thierry Beer
+ *@version 1.0
+ */
+
 public class Main extends Application {
 
     Database db = new Database();
@@ -24,7 +30,6 @@ public class Main extends Application {
         db.createTableF();
         db.createTableK();
         db.createTableTmp();
-        db.createSuperSafetyTabulettteee();
     }
 
     public void MeinWindou(){

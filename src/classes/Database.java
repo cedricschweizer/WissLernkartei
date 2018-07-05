@@ -2,6 +2,11 @@ package classes;
 
 import java.sql.*;
 
+/**
+ * class Database | connect to database, create tables, insert....
+ * @author Cédric Schweizer
+ */
+
 public class Database {
 
     String url = "jdbc:sqlite:"+System.getenv("homepath")+"/WissLK.db";
@@ -103,37 +108,6 @@ public class Database {
         }
     }
 
-    public void createSuperSafetyTabulettteee() {
-
-        String sql = "Create table if not exists superSafetyTabulettteee ( \n"
-                + "id integer primary key autoincrement,\n"
-                + "password nvarchar(1000000)"
-                + ");";
-
-        System.out.println("Table tmp successfully created!");
-
-        try (Connection connection = DriverManager.getConnection(url);
-             Statement stmt = connection.createStatement()) {
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-    public void insertSST(String password) {
-
-        String sql = "INSERT INTO superSafetyTabulettteee(password)\n"
-                + "VALUES ('"+password+"');";
-
-        System.out.println("Successfully inserted data in database!");
-
-        try (Connection connection = DriverManager.getConnection(url);
-             Statement stmt = connection.createStatement()) {
-            stmt.execute(sql);
-        } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
 
     public void insert(String vds, String hs, String img, String fach, String kat, String schtäck, Timestamp time) {
 
@@ -199,21 +173,6 @@ public class Database {
             Statement stmt = connection.createStatement()) {
             stmt.execute(sql);
         } catch (SQLException e) {
-            System.out.println(e.getMessage());
-        }
-    }
-
-
-    public void deleteDatabase() {
-        ResultSet rs = select("Select * from WLK");
-        System.out.println(rs.toString());
-        String delDB = "DETACH DATABASE WissLK;";
-        try (Connection connection = connection();
-             Statement stmt = connection.createStatement()) {
-            stmt.execute(delDB);
-            System.out.println("Successfully dropped database!");
-        } catch (SQLException e) {
-            System.out.println("Es ist ein Fehler aufgetreten! Bitte kontaktieren Sie Ihre Eltern!");
             System.out.println(e.getMessage());
         }
     }

@@ -7,6 +7,11 @@ import javafx.scene.control.TextField;
 
 import java.io.*;
 
+/**
+ * controller for the window "exec"
+ * @author Thierry Beer
+ */
+
 public class ExecController {
 
     @FXML

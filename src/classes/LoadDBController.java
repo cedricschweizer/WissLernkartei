@@ -5,18 +5,21 @@ import javafx.beans.value.ObservableValue;
 import javafx.fxml.FXML;
 import javafx.scene.control.*;
 import javafx.scene.text.Text;
-
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.ArrayList;
 import java.util.Optional;
+
+/**
+ * this class controls the loading (selecting) of the data from the database
+ * @author Cédric Schweizer, Thierry Beer
+ */
 
 public class LoadDBController {
 
     private Main main;
     private Controller controller;
     Database db = new Database();
-
 
     String loadDBFach = "";
     String loadDBKat = "";
@@ -41,6 +44,7 @@ public class LoadDBController {
     public void setMain(Main main){
         this.main = main;
     }
+
     public void setNativeController(Controller controller){
         this.controller = controller;
     }
@@ -112,7 +116,6 @@ public class LoadDBController {
             cbLoadDBFach.getSelectionModel().selectedItemProperty()
                     .addListener((ChangeListener<String>) (observable, oldValue, newValue) -> {
                         loadDBFach = newValue;
-                        //checkSTATSCH();
                         System.out.println(loadDBFach);
                     });
             System.out.println(""+loadDBFach);
@@ -138,7 +141,6 @@ public class LoadDBController {
                         public void changed(ObservableValue<? extends String> observable,
                                             String oldValue, String newValue) {
                             loadDBKat = newValue;
-                            //checkSTATSCH();
                             System.out.println(loadDBKat);
                         }
                     });
@@ -221,12 +223,4 @@ public class LoadDBController {
         main.LoadDB(controller);
     }
 
-    public void checkBöttn() {
-        if(!loadDBStack.equals("")) {
-            btnLoad.setDisable(false);
-            cbLoadDBFach.setDisable(true);
-            cbLoadDBKat.setDisable(true);
-            System.out.println("schud bi diseibld");
-        } else btnLoad.setDisable(true);
-    }
 }

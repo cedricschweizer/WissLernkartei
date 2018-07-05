@@ -14,8 +14,6 @@ import javafx.scene.media.MediaPlayer;
 import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
-
-import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -24,11 +22,14 @@ import java.sql.Timestamp;
 import java.util.ArrayList;
 import java.util.Optional;
 
+/**
+ * controller class controls most actions (save/load stack in/from database)
+ * @author Cédric Schweizer, Thierry Beer
+ */
+
 public class Controller {
 
     private Main main;
-    private int rightAnswers = 0;
-    private int falseAnswers = 0;
 
     @FXML
     TextField card;
@@ -55,7 +56,6 @@ public class Controller {
     @FXML
     Button btnInc;
 
-
     private Database db = new Database();
     private Timeline timeline = new Timeline();
     public ArrayList<Card> cardTexts = new ArrayList<>();
@@ -64,15 +64,19 @@ public class Controller {
 
     private boolean turnState;
     private int currentCard = 0;
+    private int rightAnswers = 0;
+    private int falseAnswers = 0;
 
 
     public void setMain(Main mao) {
         this.main = mao;
     }
+
     public void setAPane(AnchorPane pane){
         this.defaultPane = pane;
         playAnimation();
     }
+
     private void playAnimation(){
         MediaPlayer player = new MediaPlayer( new Media(getClass().getResource("../res/animation.mp4").toExternalForm()));
         MediaView mediaView = new MediaView(player);
@@ -85,13 +89,11 @@ public class Controller {
     }
 
     public void turnCard() throws InterruptedException {
-
         if (cardTexts.isEmpty())
             return;
         if (timeline.getStatus() == Animation.Status.RUNNING)
             return;
         card.setText("");
-
 
         timeline.setCycleCount(2);
         timeline.setAutoReverse(true);
@@ -128,6 +130,7 @@ public class Controller {
         db.update(cardTexts.get(currentCard));
         //myAlert();
     }
+
     private void setCBDisable(boolean b){
         falseAnswer.setDisable(b);
         rightAnswer.setDisable(b);
@@ -140,6 +143,7 @@ public class Controller {
     public void addNewCard(String vds, String rs, String fach, String kategorie, int stackl, Timestamp time) {
         cardTexts.add(new Card(vds, rs, fach, kategorie, stackl, time));
     }
+
     public void addNewCard(String vds, String rs, String imgPath, String fach, String kategorie, int staggl, Timestamp time){
         cardTexts.add(new Card(vds, rs, imgPath, fach, kategorie, staggl, time));
     }
@@ -184,8 +188,7 @@ public class Controller {
         showCard();
     }
 
-    public void myAlert() {
-        //if(currentCard == cardTexts.size()-1) {
+    public void myAlert() {     //not used yet      //TODO: if player reaches end of cards, ask to save...
         for (Card kaads : cardTexts) {
             if (kaads.isAnswered()) {
                 if (kaads.isLearned()) {
@@ -205,24 +208,23 @@ public class Controller {
                     } else return;
                 } else {
                     Alert infoAll = new Alert(Alert.AlertType.NONE);
-                    ButtonType jawohlMeinHeeeehr = new ButtonType("Ja, speichern");
+                    ButtonType jawohlMeinHeeeer = new ButtonType("Ja, speichern");
                     ButtonType noien = new ButtonType("Nein dangge", ButtonBar.ButtonData.CANCEL_CLOSE);
                     infoAll.getButtonTypes().removeAll();
-                    infoAll.getButtonTypes().addAll(jawohlMeinHeeeehr, noien);
+                    infoAll.getButtonTypes().addAll(jawohlMeinHeeeer, noien);
                     infoAll.setResizable(true);
 
                     infoAll.setTitle("Fortschritt speichern");
                     infoAll.setHeaderText("GUT GEMACHT!");
                     infoAll.setContentText("Sie haben alle Karten durchgelernt. Möchten Sie Ihren Fortschritt speichern?");
                     Optional<ButtonType> bötns = infoAll.showAndWait();
-                    if (bötns.get() == jawohlMeinHeeeehr) {
+                    if (bötns.get() == jawohlMeinHeeeer) {
                         saveStackDB();
                         return;
                     } else return;
                 }
             }
         }
-        //}
     }
 
     public void showCard() {
@@ -243,6 +245,7 @@ public class Controller {
                 setCBDisable(false);
             }
         }
+
         if (cardTexts.get(currentCard).hasDiggttscher()){
             iameg = new Image("file:" + cardTexts.get(currentCard).getImg());
             imgBitchSan.setImage(iameg);
@@ -310,7 +313,6 @@ public class Controller {
             db.createTableF();
             db.createTableK();
             db.createTableTmp();
-            db.createSuperSafetyTabulettteee();
 
             cardTexts.clear();
             lblCount.setText(1 + "/" + 1);

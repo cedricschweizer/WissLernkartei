@@ -9,13 +9,12 @@ import javafx.scene.control.TextField;
 import java.io.IOException;
 import java.util.Optional;
 
-public class KataController {
+/**
+ * class to control process "create new card" | inserts Kategorie into table kat in DB
+ * @author Cédric Schweizer
+ */
 
-    String tmpVS = "";
-    String tmpRS = "";
-    String tmpFach = "";
-    String tmpKat = "";
-    String tmpPath = "";
+public class KataController {
 
     Database db = new Database();
 
