@@ -10,8 +10,8 @@
     -fx-font-size: 16px;
 }
 #windowBG{
-    -fx-background-image: url("lama.jpg");
-    /*-fx-background-color: rgb(26, 46, 78);*/
+    /*-fx-background-image: url("lama.jpg");*/
+    -fx-background-color: rgb(26, 46, 78);
 }
 #menuBarara{
     -fx-background-color: #FFFFFF;
