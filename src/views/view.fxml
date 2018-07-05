@@ -50,42 +50,42 @@
       <Button layoutX="871.0" layoutY="555.0" mnemonicParsing="false" onAction="#closeApp" text="App beenden" />
       <CheckBox fx:id="rightAnswer" layoutX="37.0" layoutY="462.0" mnemonicParsing="false" onAction="#answeredRight" text="Antwort richitg" visible="false" />
       <CheckBox fx:id="falseAnswer" layoutX="241.0" layoutY="462.0" mnemonicParsing="false" onAction="#answeredWrong" text="Antwort falsch" visible="false" />
-      <Text fx:id="learnedPoints" fill="WHITE" layoutX="199.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+      <Text fx:id="learnedPoints" layoutX="199.0" layoutY="595.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="23.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Richtige Antworten:">
+      <Text layoutX="23.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Richtige Antworten:">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="23.0" layoutY="628.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Falsche Antworten:">
+      <Text layoutX="23.0" layoutY="628.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Falsche Antworten:">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="wrongPoints" fill="WHITE" layoutX="199.0" layoutY="630.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
+      <Text fx:id="wrongPoints" layoutX="199.0" layoutY="630.0" strokeType="OUTSIDE" strokeWidth="0.0" text="0">
          <font>
             <Font size="24.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="270.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktuelles Fach:">
+      <Text layoutX="270.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktuelles Fach:">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fill="WHITE" layoutX="270.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktuelle Kategorie:">
+      <Text layoutX="270.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Aktuelle Kategorie:">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="txtAktuellesFach" fill="WHITE" layoutX="440.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fx:id="txtAktuellesFach" layoutX="440.0" layoutY="593.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font size="18.0" />
          </font>
       </Text>
-      <Text fx:id="txtAktuelleKat" fill="WHITE" layoutX="440.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0">
+      <Text fx:id="txtAktuelleKat" layoutX="440.0" layoutY="627.0" strokeType="OUTSIDE" strokeWidth="0.0">
          <font>
             <Font size="18.0" />
          </font>

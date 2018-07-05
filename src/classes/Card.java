@@ -14,6 +14,7 @@ public class Card {
     private int id = -1;
     private boolean isTrap;
     public boolean isLearned;
+    public boolean isAnswered;
     Calendar calendar = Calendar.getInstance();
     Date now = calendar.getTime();
     Timestamp time = new java.sql.Timestamp(now.getTime());
@@ -67,6 +68,7 @@ public class Card {
     public String getKategorie(){return this.kategorie;}
     public boolean getTrap(){return this.isTrap;}
     public boolean isLearned() {return this.isLearned;}
+    public boolean isAnswered() {return this.isAnswered;}
     public void setTrap(boolean b){
         this.isTrap = b;
     }

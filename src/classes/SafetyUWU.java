@@ -26,7 +26,7 @@ public class SafetyUWU {
                 Alert üwäHAH = new Alert(Alert.AlertType.INFORMATION);
                 üwäHAH.setTitle("Schlingel du...");
                 üwäHAH.setHeaderText("STARTING COUNTDOWN TILL SELF DESTROY");
-                üwäHAH.setContentText("PLIS RÖN ÄS FAR ÄS YOU KÄN OR GO GET YOURSELF A KOFFIIIIIII\nGREETINGS ÜWÜ");
+                üwäHAH.setContentText("PLIS RÖN ÄS FAR ÄS YOU KÄN ÄND SÖRTSCH SCHELTER OR GO GET YOURSELF A KOFFIIIIIII\nGREETINGS ÜWÜ");
                 üwäHAH.show();
                 try {
                     Thread.sleep(3000);

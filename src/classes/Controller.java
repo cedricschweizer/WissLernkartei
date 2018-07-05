@@ -15,6 +15,7 @@ import javafx.scene.media.MediaView;
 import javafx.scene.text.Text;
 import javafx.util.Duration;
 
+import java.io.BufferedReader;
 import java.io.IOException;
 import java.sql.Connection;
 import java.sql.DriverManager;
@@ -106,34 +107,18 @@ public class Controller {
 
     public void answeredRight() {
         cardTexts.get(currentCard).isLearned = true;
+        cardTexts.get(currentCard).isAnswered = true;
         rightAnswers++;
         cardTexts.get(currentCard).setTrap(true);
         learnedPoints.setText(""+rightAnswers);
         setCBDisable(true);
         cardTexts.get(currentCard).muuf();
         db.update(cardTexts.get(currentCard));
-        Alert info = new Alert(Alert.AlertType.NONE);
-        ButtonType jawoll = new ButtonType("Ja, speichern");
-        ButtonType nain = new ButtonType("Nein, ich kann selber speichern du Affe", ButtonBar.ButtonData.CANCEL_CLOSE);
-        info.getButtonTypes().removeAll();
-        info.getButtonTypes().addAll(jawoll, nain);
-        info.setResizable(true);
-
-        info.setTitle("Fortschritt speichern");
-        info.setHeaderText("GUT GEMACHT!");
-        info.setContentText("Sie haben alle Karten durchgelernt. Möchten Sie Ihren Fortschritt speichern?");
-        for (Card kaads : cardTexts) {
-            if (!kaads.isLearned())
-                return;
-        }
-        Optional<ButtonType> buttons = info.showAndWait();
-        if (buttons.get() == jawoll) {
-            saveStackDB();
-            return;
-        } else return;
+        //myAlert();
     }
 
     public void answeredWrong() {
+        cardTexts.get(currentCard).isAnswered = true;
         cardTexts.get(currentCard).isLearned = false;
         falseAnswers++;
         cardTexts.get(currentCard).setTrap(true);
@@ -141,6 +126,7 @@ public class Controller {
         setCBDisable(true);
         cardTexts.get(currentCard).setEis();
         db.update(cardTexts.get(currentCard));
+        //myAlert();
     }
     private void setCBDisable(boolean b){
         falseAnswer.setDisable(b);
@@ -196,6 +182,47 @@ public class Controller {
         this.currentCard--;
         this.turnState = false;
         showCard();
+    }
+
+    public void myAlert() {
+        //if(currentCard == cardTexts.size()-1) {
+        for (Card kaads : cardTexts) {
+            if (kaads.isAnswered()) {
+                if (kaads.isLearned()) {
+                    Alert info = new Alert(Alert.AlertType.NONE);
+                    ButtonType jawoll = new ButtonType("Ja, speichern");
+                    ButtonType nain = new ButtonType("Nein, ich kann selber speichern du Affe", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    info.getButtonTypes().removeAll();
+                    info.getButtonTypes().addAll(jawoll, nain);
+                    info.setResizable(true);
+
+                    info.setTitle("Fortschritt speichern");
+                    info.setHeaderText("GUT GEMACHT! Alle Karten richtig beantwortet!");
+                    info.setContentText("Sie haben alle Karten durchgelernt und alle richtig beantwortet. Möchten Sie Ihren Fortschritt speichern?");
+                    Optional<ButtonType> buttons = info.showAndWait();
+                    if (buttons.get() == jawoll) {
+                        saveStackDB();
+                    } else return;
+                } else {
+                    Alert infoAll = new Alert(Alert.AlertType.NONE);
+                    ButtonType jawohlMeinHeeeehr = new ButtonType("Ja, speichern");
+                    ButtonType noien = new ButtonType("Nein dangge", ButtonBar.ButtonData.CANCEL_CLOSE);
+                    infoAll.getButtonTypes().removeAll();
+                    infoAll.getButtonTypes().addAll(jawohlMeinHeeeehr, noien);
+                    infoAll.setResizable(true);
+
+                    infoAll.setTitle("Fortschritt speichern");
+                    infoAll.setHeaderText("GUT GEMACHT!");
+                    infoAll.setContentText("Sie haben alle Karten durchgelernt. Möchten Sie Ihren Fortschritt speichern?");
+                    Optional<ButtonType> bötns = infoAll.showAndWait();
+                    if (bötns.get() == jawohlMeinHeeeehr) {
+                        saveStackDB();
+                        return;
+                    } else return;
+                }
+            }
+        }
+        //}
     }
 
     public void showCard() {
