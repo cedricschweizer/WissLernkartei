@@ -94,7 +94,6 @@ public class Controller {
         if (timeline.getStatus() == Animation.Status.RUNNING)
             return;
         card.setText("");
-
         timeline.setCycleCount(2);
         timeline.setAutoReverse(true);
         final KeyValue kv = new KeyValue(card.prefWidthProperty(), 30);
