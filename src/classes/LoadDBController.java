@@ -126,7 +126,7 @@ public class LoadDBController {
 
     public void loadCBkat() {
         checkStatsch();
-        ResultSet rsLoadKat = db.select("Select distinct kategorie from kat;");
+        ResultSet rsLoadKat = db.select("Select distinct kategorie from kat as k join fach as f on k.fkFachID = f.id;");
         try {
             if(!böleanKattlä) {
                 while (rsLoadKat.next()) {

@@ -1,10 +1,13 @@
 package classes;
 
+import javafx.animation.FadeTransition;
+import javafx.animation.Timeline;
 import javafx.fxml.FXML;
-import javafx.scene.control.Alert;
-import javafx.scene.control.ButtonBar;
-import javafx.scene.control.ButtonType;
-import javafx.scene.control.TextField;
+import javafx.scene.control.*;
+import javafx.scene.text.Text;
+import javafx.scene.text.TextAlignment;
+import javafx.util.Duration;
+
 import java.io.IOException;
 import java.util.Optional;
 
@@ -15,14 +18,18 @@ import java.util.Optional;
 
 public class FackController {
 
+
     Database db = new Database();
 
     private Main main;
     private NewCardControllerererer ncontrol;
     private Controller control;
+    private String fack = "";
 
     @FXML
     TextField txtNewFach;
+    @FXML
+    Text txtCreatedFack;
 
     public void setMain(Main main){
         this.main = main;
@@ -35,6 +42,7 @@ public class FackController {
     }
 
     public void crtNewFach() {
+
         Alert alert = new Alert(Alert.AlertType.WARNING);
         ButtonType OK = new ButtonType("OK", ButtonBar.ButtonData.CANCEL_CLOSE);
         if(txtNewFach.getText().equals("")||txtNewFach.getText().contains(" ")) {
@@ -46,16 +54,18 @@ public class FackController {
             txtNewFach.setText("");
             return;
         }
-        Alert info = new Alert(Alert.AlertType.INFORMATION);
-        ButtonType oggei = new ButtonType("OK", ButtonBar.ButtonData.OK_DONE);
-
-        info.getButtonTypes().setAll(oggei);
-        info.setTitle("Information");
-        info.setHeaderText("Fach erstellt");
-        info.setContentText("Das Fach wurde erfolgreich erstellt!");
-        Optional<ButtonType> res = info.showAndWait();
         db.insertF(txtNewFach.getText());
+        txtCreatedFack.setText("");
+        fack = txtNewFach.getText();
+        txtCreatedFack.setText("Kategorie '"+fack+"' erstellt!");
+        txtCreatedFack.setTextAlignment(TextAlignment.CENTER);
         txtNewFach.setText("");
+        FadeTransition ft = new FadeTransition(Duration.millis(2000), txtCreatedFack);
+        ft.setFromValue(1.0);
+        ft.setToValue(0.1);
+        ft.setCycleCount(Timeline.INDEFINITE);
+        ft.setAutoReverse(true);
+        ft.play();
     }
 
     public void fachBack() throws IOException {

@@ -21,6 +21,7 @@ import java.util.Date;
 
 public class NewCardControllerererer {
 
+
     Database db = new Database();
 
     private FileChooser fileChooser = new FileChooser();
@@ -29,6 +30,7 @@ public class NewCardControllerererer {
     private Controller controller;
     private String selectedFach;
     private String selectedKat;
+    public String loadDBFach = "";
     Calendar calendar = Calendar.getInstance();
     Date now = calendar.getTime();
     Timestamp time = new java.sql.Timestamp(now.getTime());
@@ -133,7 +135,7 @@ public class NewCardControllerererer {
     public void fachDropped() {
         cbCreateFach.getItems().clear();
         System.out.println("fachDropped");
-        ResultSet rsFach = db.select("Select distinct fach from fach;");
+        ResultSet rsFach = db.select("Select distinct fach from fach ;");
         try {
             while (rsFach.next()){
                 cbCreateFach.getItems().addAll(rsFach.getString("fach"));
@@ -156,12 +158,12 @@ public class NewCardControllerererer {
         }
     }
 
-    public void katDropped() {
+    public void katDropped() throws SQLException {
         cbCreateKat.getItems().clear();
-        System.out.println("katDropped");
-        ResultSet rsKat = db.select("Select distinct kategorie from kat;");
+        ResultSet rsKat = db.select("Select distinct kategorie from kat as k join fach as f on k.fkFachID = f.id;");
+        //where k.fkFachID = "+db.select("Select id from fach where fach = '"+loadDBFach+"'")+";"   //TODO: only appropriated faches uwu
         try {
-            while (rsKat.next()){
+            while (rsKat.next()) {
                 cbCreateKat.getItems().addAll(rsKat.getString("kategorie"));
                 System.out.println("Added new Kategorie");
                 System.out.println(rsKat.getString("kategorie"));
@@ -197,10 +199,10 @@ public class NewCardControllerererer {
         main.getChusStatsch().close();
     }
     private void showInsaneWarning(){
-            Alert alert = new Alert(Alert.AlertType.ERROR);
-            alert.setTitle("Warnung");
-            alert.setHeaderText("Sie haben etwas vergessen!");
-            alert.setContentText("Bitte füllen Sie alle benötigten Elemente aus (Bildpath nicht nötig)!");
-            alert.showAndWait();
+        Alert alert = new Alert(Alert.AlertType.ERROR);
+        alert.setTitle("Warnung");
+        alert.setHeaderText("Sie haben etwas vergessen!");
+        alert.setContentText("Bitte füllen Sie alle benötigten Elemente aus (Bildpath nicht nötig)!");
+        alert.showAndWait();
     }
 }

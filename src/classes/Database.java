@@ -76,7 +76,9 @@ public class Database {
 
         String sql = "Create table if not exists kat ( \n"
                 + "id integer primary key autoincrement,\n"
-                + "kategorie nvarchar(200)\n"
+                + "kategorie nvarchar(200),\n"
+                + "fkFachID INTEGER, "
+                + "FOREIGN KEY(fkFachID) REFERENCES fach(id)/**/"
                 + ");";
 
         System.out.println("Table kat successfully created!");
@@ -139,10 +141,10 @@ public class Database {
         }
     }
 
-    public void insertK(String kat) {
+    public void insertK(String kat, Integer fkFachID) {
 
-        String sql = "INSERT INTO kat(kategorie)\n"
-                + "VALUES ('"+kat+"');";
+        String sql = "INSERT INTO kat(kategorie, fkFachID)\n"
+                + "VALUES ('"+kat+"',"+fkFachID+");";
 
         System.out.println("Successfully inserted data in database!");
 
@@ -158,6 +160,16 @@ public class Database {
         try (Connection connection = DriverManager.getConnection(url);
              Statement stmt = connection.createStatement()) {
             stmt.execute(update);
+        } catch (SQLException e) {
+            System.out.println(e.getMessage());
+        }
+    }
+
+    public void sqlStatement(String sql) throws SQLException {
+        DriverManager.getConnection(url).close();
+        try (Connection connection = DriverManager.getConnection(url);
+             Statement stmt = connection.createStatement()) {
+            stmt.execute(sql);
         } catch (SQLException e) {
             System.out.println(e.getMessage());
         }
